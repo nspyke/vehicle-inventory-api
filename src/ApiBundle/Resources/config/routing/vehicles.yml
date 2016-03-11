@@ -1,0 +1,35 @@
+vehicles_post:
+    path: /vehicles
+    defaults:  { _controller: ApiBundle:Vehicle:post }
+    methods: [POST]
+
+vehicles_put:
+    path: /vehicles/{id}
+    defaults:  { _controller: ApiBundle:Vehicle:put }
+    methods: [PUT]
+
+vehicles_list:
+    path: /vehicles
+    defaults:  { _controller: ApiBundle:Vehicle:getList }
+    methods: [GET]
+
+vehicles_id:
+    path: /vehicles/{id}
+    defaults:  { _controller: ApiBundle:Vehicle:getOneById }
+    methods: [GET]
+    requirements:
+        id: "\d+"
+
+vehicles_id_patch:
+    path: /vehicles/{id}
+    defaults:  { _controller: ApiBundle:Vehicle:patch }
+    methods: [PATCH]
+    requirements:
+        id: "\d+"
+
+vehicles_vin:
+    path: /vehicles/vin/{vin}
+    defaults:  { _controller: ApiBundle:Vehicle:getOneByVin }
+    methods: [GET]
+    requirements:
+        vin: "[0-9a-zA-Z]+"

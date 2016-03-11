@@ -1,0 +1,22 @@
+countries:
+    path:     /countries
+    defaults: { _controller: "ApiBundle:Country:getList" }
+    methods:  GET
+
+countries_id:
+    path:     /countries/{id}
+    defaults: { _controller: "ApiBundle:Country:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+countries_iso:
+    path:     /countries/{iso}
+    defaults: { _controller: "ApiBundle:Country:getOneByIso" }
+    methods:  GET
+    requirements:
+        iso: "[a-zA-Z]{2,3}"
+
+
+
+

@@ -1,0 +1,31 @@
+IMS\CommonBundle\Entity\Engine:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        cylinders:
+            - Type:
+                type: integer
+        valves:
+            - Type:
+                type: integer
+        bhp:
+            - Type:
+                type: integer
+        turbo:
+            - Type:
+                type: integer
+        supercharger:
+            - Type:
+                type: integer
+        dateAdded:
+            - DateTime: ~
+        dateUpdated:
+            - DateTime: ~
+        isVerified:
+            - Type:
+                type: boolean
+        status:
+            - Type:
+                type: integer

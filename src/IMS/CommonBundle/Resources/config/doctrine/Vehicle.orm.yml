@@ -1,0 +1,148 @@
+IMS\CommonBundle\Entity\Vehicle:
+  type: entity
+  table: vehicle
+  fields:
+    id:
+      id: true
+      type: integer
+      length: 11
+      generator:
+        strategy: IDENTITY
+    vin:
+      type: string
+      length: 20
+    reg:
+      type: string
+      length: 20
+      nullable: true
+    vehicleStatus:
+      type: integer
+      nullable: true
+      column: vehicle_status
+    vehicleType:
+      type: integer
+      nullable: true
+      column: vehicle_type
+    doors:
+      type: integer
+      nullable: true
+    seats:
+      type: integer
+      nullable: true
+    drive:
+      type: string
+      length: 1
+      nullable: true
+      options:
+        default: R
+    odometer:
+      type: integer
+      nullable: true
+    odometerCanonical:
+      type: integer
+      nullable: true
+      column: odometer_canonical
+    odometerUnit:
+      type: string
+      length: 2
+      nullable: true
+      column: odometer_unit
+      options:
+        default: km
+    dateRegistered:
+      type: date
+      nullable: true
+      column: date_registered
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    addedBy:
+      type: string
+      length: 200
+      nullable: true
+      column: added_by
+    updatedBy:
+      type: string
+      length: 200
+      nullable: true
+      column: updated_by
+    isNew:
+      type: boolean
+      column: is_new
+    isManufacturerApproved:
+      type: boolean
+      column: is_manufacturer_approved
+    isFeatured:
+      type: boolean
+      column: is_featured
+    isVisible:
+      type: boolean
+      column: is_visible
+    status:
+      type: integer
+      length: 2
+  uniqueConstraints:
+    uidx_vehicle_vin:
+      columns: [vin]
+  oneToMany:
+    vehiclePrices:
+      targetEntity: IMS\CommonBundle\Entity\VehiclePrice
+      mappedBy:     vehicle
+
+  manyToOne:
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy:   vehicles
+    model:
+      targetEntity: IMS\CommonBundle\Entity\Model
+    variant:
+      targetEntity: IMS\CommonBundle\Entity\Variant
+    dealer:
+      targetEntity: IMS\CommonBundle\Entity\Dealer
+      inversedBy:   vehicles
+    transmission:
+      targetEntity: IMS\CommonBundle\Entity\Transmission
+    engine:
+      targetEntity: IMS\CommonBundle\Entity\Engine
+    bodystyle:
+      targetEntity: IMS\CommonBundle\Entity\Bodystyle
+    colourExterior:
+      targetEntity: IMS\CommonBundle\Entity\Colour
+    trim:
+      targetEntity: IMS\CommonBundle\Entity\Trim
+    trimMaterial:
+      targetEntity: IMS\CommonBundle\Entity\TrimMaterial
+    trimShade:
+      targetEntity: IMS\CommonBundle\Entity\TrimShade
+    wheelbase:
+      targetEntity: IMS\CommonBundle\Entity\Wheelbase
+    technicalSpecificationData:
+      targetEntity: IMS\CommonBundle\Entity\TechnicalSpecificationData
+    package:
+      targetEntity: IMS\CommonBundle\Entity\Package
+
+  manyToMany:
+    equipment:
+      targetEntity: IMS\CommonBundle\Entity\Equipment
+      inversedBy: vehicle
+      joinTable:
+        name: equipment_vehicle
+        joinColumns:
+          vehicle_id:
+            referencedColumnName: id
+            nullable: false
+        inverseJoinColumns:
+          equipment_id:
+            referencedColumnName: id
+            nullable: false

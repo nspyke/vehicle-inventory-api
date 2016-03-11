@@ -1,0 +1,23 @@
+IMS\CommonBundle\Entity\ColourManufacturerCode:
+  type: entity
+  table: colour_manufacturer_code
+  fields:
+    id:
+      id: true
+      type: integer
+      length: 11
+      generator:
+        strategy: IDENTITY
+    code:
+      type: string
+      length: 50
+  uniqueConstraints:
+    uidx_colour_manufacturer_code_colour_id_code:
+      columns: [colour_id, code]
+  manyToOne:
+    colour:
+      targetEntity: IMS\CommonBundle\Entity\Colour
+      inversedBy: manufacturerCodes
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: colourManufacturerCodes

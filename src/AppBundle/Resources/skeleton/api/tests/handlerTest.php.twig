@@ -1,0 +1,252 @@
+<?php
+/**
+ * {{ entity_class }}Handler Test
+ *
+ * @author {{ usersName }} <{{ usersEmail }}>
+* @package api
+* @category test
+* @since {{ date_since }}
+*/
+namespace {{ namespace }}\Tests\Handler;
+
+use {{ namespace }}\Form\{{ type_class }};
+use Mockery as m;
+use {{ namespace }}\Handler\{{ handler_class }};
+use {{ entity }};
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Symfony\Component\HttpFoundation\Request;
+
+class {{ handler_class }}Test extends BaseTestHandler
+{
+    public function setUp()
+    {
+        $this->className = '{{ entity }}';
+        $this->repoName = 'Doctrine\ORM\EntityRepository';
+
+        parent::setUp();
+    }
+
+{% if 'getList' in actions %}
+    public function testGetList()
+    {
+        $request = $this->createQueryRequest(10, 1, 'field1', 0);
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+
+        $paginator = $this->createPaginator(10, 1);
+
+        $handler->setPaginator($paginator);
+
+        $list = $handler->getList($request);
+
+        $this->assertInstanceOf(SlidingPagination::class, $list);
+
+    }
+{%- endif %}
+
+{% if 'getOne' in actions %}
+    public function testGetOneById()
+    {
+        $this->repo
+            ->shouldReceive('find')->with(1)->andReturn(new {{ entity_class }}());
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+
+        $entity = $handler->getOneById(1);
+
+        $this->assertInstanceOf($this->className, $entity);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function testGetOneByIdThrowsExceptionWhenNull()
+    {
+        $this->repo
+            ->shouldReceive('find')->with(1)->andReturn(null);
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+
+        $entity = $handler->getOneById(1);
+    }
+
+    public function testGetOneBy()
+    {
+        $this->repo
+            ->shouldReceive('findOneBy')->with(['column' => 'value'])->andReturn(new {{ entity_class }}());
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+
+        $entity = $handler->getOneBy('column', 'value');
+
+        $this->assertInstanceOf($this->className, $entity);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function testGetOneByThrowsExceptionWhenNull()
+    {
+        $this->repo
+            ->shouldReceive('findOneBy')->with(['column' => 'value'])->andReturn(null);
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+
+        $entity = $handler->getOneBy('column', 'value');
+    }
+{% endif %}
+
+{% if 'post' in actions %}
+    public function testPost()
+    {
+        $method = 'POST';
+        $request = m::mock(Request::class);
+
+        $this->setUpProcessForm($request, $method, {{ type_class }}::class);
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $result = $handler->post($request);
+
+        $this->assertInstanceOf($this->className, $result);
+    }
+
+{% else %}
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testPost()
+    {
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $handler->post(m::mock(Request::class));
+    }
+{% endif %}
+
+{% if 'patch' in actions %}
+    public function testPatch()
+    {
+        $id = 1;
+
+        $this->repo
+            ->shouldReceive('find')->with($id)->andReturn(new {{ entity_class }}());
+
+        $method = 'PATCH';
+        $request = m::mock(Request::class)
+            ->shouldReceive('getMethod')->andReturn($method)->getMock();
+
+        $this->setUpProcessForm($request, $method, {{ type_class }}::class);
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $result = $handler->patch($id, $request);
+
+        $this->assertInstanceOf($this->className, $result);
+    }
+
+{% else %}
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testPatch()
+    {
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $handler->patch(1, m::mock(Request::class));
+    }
+{% endif %}
+
+{% if 'put' in actions %}
+    public function testPutUpdating()
+    {
+        $id = 1;
+
+        $this->repo
+            ->shouldReceive('find')->with($id)->andReturn(new {{ entity_class }}());
+
+        $method = 'PUT';
+        $request = m::mock(Request::class)
+            ->shouldReceive('getMethod')->andReturn($method)->getMock();
+
+        $this->setUpProcessForm($request, $method, {{ type_class }}::class);
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $result = $handler->put($id, $request);
+
+        $this->assertInstanceOf($this->className, $result->entity);
+        $this->assertTrue($result->isUpdate());
+    }
+
+    public function testPutCreating()
+    {
+        $id = 1;
+
+        $this->repo
+            ->shouldReceive('find')->with($id)->andReturn(null);
+
+        $method = 'PUT';
+        $request = m::mock(Request::class)
+            ->shouldReceive('getMethod')->andReturn($method)->getMock();
+
+        $this->setUpProcessForm($request, $method, {{ type_class }}::class);
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $result = $handler->put($id, $request);
+
+        $this->assertInstanceOf($this->className, $result->entity);
+        $this->assertTrue($result->isCreate());
+    }
+
+{% else %}
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testPut()
+    {
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $handler->put(1, m::mock(Request::class));
+    }
+{% endif %}
+
+{% if 'delete' in actions %}
+    public function testDelete()
+    {
+        $e = new {{ entity_class }}();
+        $this->repo
+            ->shouldReceive('find')->with(1)->andReturn($e);
+
+        $this->em
+            ->shouldReceive('remove')->with($e)->getMock()
+            ->shouldReceive('flush')->getMock()
+        ;
+
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $handler->delete(1);
+    }
+
+{% else %}
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testDelete()
+    {
+        $handler = new {{ handler_class }}($this->em, $this->className);
+        $handler->setFormFactory($this->formFactory);
+        $handler->delete(1);
+    }
+{% endif %}
+
+}

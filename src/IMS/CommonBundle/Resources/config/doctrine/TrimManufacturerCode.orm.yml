@@ -1,0 +1,22 @@
+IMS\CommonBundle\Entity\TrimManufacturerCode:
+  type: entity
+  table: trim_manufacturer_code
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    code:
+      type: string
+      length: 50
+  uniqueConstraints:
+    uidx_trim_manufacturer_code_trim_id_code:
+      columns: [trim_id, code]
+  manyToOne:
+    trim:
+      targetEntity: IMS\CommonBundle\Entity\Trim
+      inversedBy: manufacturerCodes
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: trimManufacturerCodes

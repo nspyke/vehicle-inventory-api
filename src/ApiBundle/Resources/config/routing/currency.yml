@@ -1,0 +1,22 @@
+currencies:
+    path:     /currencies
+    defaults: { _controller: "ApiBundle:Currency:getList" }
+    methods:  GET
+
+currencies_id:
+    path:     /currencies/{id}
+    defaults: { _controller: "ApiBundle:Currency:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+currencies_iso:
+    path:     /currencies/{iso}
+    defaults: { _controller: "ApiBundle:Currency:getOneByIso" }
+    methods:  GET
+    requirements:
+        iso: "[a-zA-Z]{3}"
+
+
+
+

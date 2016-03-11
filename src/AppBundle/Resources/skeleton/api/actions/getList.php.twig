@@ -1,0 +1,37 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * Lists all {{ entity_class }} entities.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+     * @ApiDoc(
+     *      resource=true,
+     *      description="GET a list of {{ entity_class }}",
+     *      section="{{ entity_class }}",
+     *      filters={
+     *          {"name"="_sort", "dataType"="string"},
+     *          {"name"="_limit", "dataType"="integer", "default"=10},
+     *          {"name"="_page", "dataType"="integer", "default"=1},
+     *      }
+     * )
+     * @View(serializerEnableMaxDepthChecks=true)
+     * @param Request $request
+     * @return \FOS\RestBundle\View\View
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function getListAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $handler = $this->get('{{ handler_service_name }}');
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->view(
+            $handler->getList($request),
+            Codes::HTTP_OK
+        );
+{% endblock method_return %}
+    }

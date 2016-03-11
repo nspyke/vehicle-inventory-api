@@ -1,0 +1,36 @@
+trims:
+    path:     /trims
+    defaults: { _controller: "ApiBundle:Trim:getList" }
+    methods:  GET
+
+trims_mc_list:
+    path:     /trims/manufacturer-codes
+    defaults: { _controller: "ApiBundle:Trim:getManufacturerCodesList" }
+    methods:  GET
+
+trims_id:
+    path:     /trims/{id}
+    defaults: { _controller: "ApiBundle:Trim:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+trims_post:
+    path:     /trims
+    defaults: { _controller: "ApiBundle:Trim:post" }
+    methods:  POST
+
+trims_id_patch:
+    path:     /trims/{id}
+    defaults: { _controller: "ApiBundle:Trim:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+
+trims_id_put:
+    path:     /trims/{id}
+    defaults: { _controller: "ApiBundle:Trim:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+

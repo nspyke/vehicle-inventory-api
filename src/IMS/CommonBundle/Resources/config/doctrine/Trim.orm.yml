@@ -1,0 +1,49 @@
+IMS\CommonBundle\Entity\Trim:
+  type: entity
+  table: trim
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\TrimTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 80
+      nullable: false
+      gedmo:
+        - translatable
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    isVerified:
+      type: integer
+      column: is_verified
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    manufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\TrimManufacturerCode
+      mappedBy: trim
+    trimShades:
+      targetEntity: IMS\CommonBundle\Entity\TrimShade
+      mappedBy: trim
+  manyToMany:
+    manufacturers:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      mappedBy: trims

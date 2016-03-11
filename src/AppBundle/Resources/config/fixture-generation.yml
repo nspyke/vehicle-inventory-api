@@ -1,0 +1,79 @@
+order:
+  - Fuel
+  - TrimMaterial
+  - Transmission
+  - Trim
+  - TrimShade
+  - Variant
+  - Engine
+  - Bodystyle
+  - Wheelbase
+  - Colour
+  - Currency
+  - Country
+  - Account
+  - Location
+  - Manufacturer
+  - DealerGroup
+  - Dealer
+  - EquipmentType
+  - Equipment
+  - ModelGroup
+  - Model
+  - EquipmentManufacturerCode
+  - TransmissionManufacturerCode
+  - TrimMaterialManufacturerCode
+  - VariantManufacturerCode
+  - ColourManufacturerCode
+  - WheelbaseManufacturerCode
+  - EngineManufacturerCode
+  - BodystyleManufacturerCode
+  - TrimManufacturerCode
+  - TechnicalSpecificationData
+  - TechnicalSpecification
+  - PackageType
+  - Package
+  - Vehicle
+  - VehiclePrice
+
+exclude:
+  - EquipmentTranslation
+  - VariantTranslation
+  - ModelTranslation
+  - WheelbaseTranslation
+  - TrimMaterialTranslation
+  - ModelGroupTranslation
+  - PackageTypeTranslation
+  - ColourTranslation
+  - FuelTranslation
+  - EngineTranslation
+  - AbstractTranslation
+  - TrimTranslation
+  - BodystyleTranslation
+  - EquipmentTypeTranslation
+  - TransmissionTranslation
+  - PackageTranslation
+  - TrimShadeTranslation
+  - ManufacturerTranslation
+  - CountryTranslation
+
+data:
+  Country:
+    values:
+      - { name: United Kingdom, isoCode: GB }
+  Manufacturer:
+    count: 4
+    values:
+      - { name: Jaguar, code: jaguar }
+      - { name: Land Rover, code: landrover }
+      - { name: Toyota, code: toyota }
+      - { name: Ferrari, code: ferrari }
+  Model:
+    values:
+      - { name: thefirstevermodel }
+  Vehicle:
+    values:
+      - { vin: vin1234 }
+  Currency:
+    values:
+      - { name: British Pound, isoCode: GBP }

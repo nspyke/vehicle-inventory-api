@@ -1,0 +1,46 @@
+IMS\CommonBundle\Entity\Transmission:
+  type: entity
+  table: transmission
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\TransmissionTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      length: 11
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    isVerified:
+      type: boolean
+      column: is_verified
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    manufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\TransmissionManufacturerCode
+      mappedBy: transmission
+  manyToMany:
+    manufacturers:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      mappedBy: transmissions

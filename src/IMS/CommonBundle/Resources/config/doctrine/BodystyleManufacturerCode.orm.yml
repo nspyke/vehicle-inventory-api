@@ -1,0 +1,22 @@
+IMS\CommonBundle\Entity\BodystyleManufacturerCode:
+  type: entity
+  table: bodystyle_manufacturer_code
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    code:
+      type: string
+      length: 50
+  indexes:
+    uidx_bodystyle_manufacturer_code_bodystyle_id_code:
+      columns: [bodystyle_id, code]
+  manyToOne:
+    bodystyle:
+      targetEntity: IMS\CommonBundle\Entity\Bodystyle
+      inversedBy: manufacturerCodes
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: bodystyleManufacturerCodes

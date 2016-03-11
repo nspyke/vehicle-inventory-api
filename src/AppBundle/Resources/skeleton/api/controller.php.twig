@@ -1,0 +1,62 @@
+<?php
+/**
+ * {{ entity_class }} Controller for {{ entity_class }} operations
+ *
+ * @author {{ usersName }} <{{ usersEmail }}>
+ * @package api
+ * @category controller
+ * @since {{ date_since }}
+ */
+
+namespace {{ namespace }}\Controller;
+
+{% block use_statements %}
+use Symfony\Component\HttpFoundation\Request;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations\View;
+{% if 'post' in actions or 'patch' in actions or 'put' in actions or 'delete' in actions %}
+use AppBundle\Exception\InvalidFormException;
+{%- endif %}
+
+use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\Controller\FOSRestController;
+{% endblock use_statements %}
+
+/**
+{% block phpdoc_class_header %}
+ * {{ entity_class }} controller.
+{% endblock phpdoc_class_header %}
+ *
+{% block phpdoc_class_annotations %}
+{% endblock phpdoc_class_annotations %}
+ */
+{% block class_definition %}
+class {{ entity_class }}Controller extends RestController
+{% endblock class_definition %}
+{
+{% block class_body %}
+    {%- if 'getList' in actions %}
+        {%- include 'api/actions/getList.php.twig' %}
+    {%- endif %}
+
+    {%- if 'getOne' in actions %}
+        {%- include 'api/actions/getOne.php.twig' %}
+    {%- endif %}
+
+    {%- if 'post' in actions %}
+        {%- include 'api/actions/post.php.twig' %}
+    {%- endif %}
+
+    {%- if 'put' in actions %}
+        {%- include 'api/actions/put.php.twig' %}
+    {%- endif %}
+
+    {%- if 'patch' in actions %}
+        {%- include 'api/actions/patch.php.twig' %}
+    {%- endif %}
+
+    {%- if 'delete' in actions %}
+        {%- include 'api/actions/delete.php.twig' %}
+    {%- endif %}
+{% endblock class_body %}
+}

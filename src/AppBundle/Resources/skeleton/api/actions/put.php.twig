@@ -1,0 +1,50 @@
+    /**
+{% block phpdoc_method_header %}
+    * Updates an existing {{ entity }} entity.
+{% endblock phpdoc_method_header %}
+    *
+{% block phpdoc_method_annotations %}
+    * NOTE: When performing an update, it is a full update.
+    * This means that only the fields supplied in the JSON body will be set.
+    * All other fields will be reset/set to NULL.
+    * If you want to do a partial update, use the PATCH endpoint below.
+    *
+    * @ApiDoc(
+    *      resource=true,
+    *      section="{{ entity_class }}",
+    *      description="Update a {{ entity_class }} or create it if it doesn't exist",
+    *      resourceDescription="Operations on {{ entity_class }}.",
+    *      input="{{ namespace }}\Form\{{ entity_class }}Type",
+    *      statusCodes={
+    *          201="{{ entity_class }} created successfully.",
+    *          204="{{ entity_class }} updated successfully.",
+    *          400="Bad request. Validation error.",
+    *          404="{{ entity_class }} not found."
+    *      }
+    * )
+    * @param integer $id
+    * @param Request $request
+    * @return \FOS\RestBundle\View\View
+{% endblock phpdoc_method_annotations %}
+    */
+{% block method_definition %}
+    public function putAction($id, Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        try {
+            $handler = $this->get('{{ handler_service_name }}');
+
+            /** @var \ApiBundle\Handler\HandlerResponse $response */
+            $response = $handler->put($id, $request);
+
+            $statusCode = $response->isCreate() ? Codes::HTTP_CREATED : Codes::HTTP_NO_CONTENT;
+
+            return $this->routeRedirectView('{{ route_name_prefix }}_id', ['id' => $response->entity->getId()], $statusCode);
+
+        } catch (InvalidFormException $exception) {
+
+            return $exception->getForm();
+        }
+{% endblock method_body %}
+    }

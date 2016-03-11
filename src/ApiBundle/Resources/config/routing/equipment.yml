@@ -1,0 +1,35 @@
+equipment_post:
+    path: /equipment
+    defaults:  { _controller: ApiBundle:Equipment:post }
+    methods: [POST]
+
+equipment_put:
+    path: /equipment/{id}
+    defaults:  { _controller: ApiBundle:Equipment:put }
+    methods: [PUT]
+    requirements:
+        id: "\d+"
+
+equipment_list:
+    path: /equipment
+    defaults:  { _controller: ApiBundle:Equipment:getList }
+    methods: [GET]
+    
+equipment_mc_list:
+    path: /equipment/manufacturer-codes
+    defaults:  { _controller: ApiBundle:Equipment:getManufacturerCodesList }
+    methods: [GET]
+
+equipment_id_patch:
+    path: /equipment/{id}
+    defaults:  { _controller: ApiBundle:Equipment:patch }
+    methods: [PATCH]
+    requirements:
+        id: "\d+"        
+
+equipment_id:
+    path: /equipment/{id}
+    defaults:  { _controller: ApiBundle:Equipment:getOneById }
+    methods: [GET]
+    requirements:
+        id: "\d+"       

@@ -1,0 +1,212 @@
+parameters:
+    jms_serializer.form_error_handler.class: ApiBundle\Serializer\FormErrorHandler
+services:
+    kernel.listener.response_listener:
+        class: ApiBundle\EventListener\ResponseListener
+        arguments:
+            - '@gedmo.listener.translatable'
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+    api.view_factory:
+        class: ApiBundle\View\Factory\ViewFactory
+        arguments:
+            - '@router'
+    api.exception_wrapper_handler:
+        class: ApiBundle\Handler\ExceptionWrapperHandler
+        arguments:
+            - '@api.view_factory'
+    api.currency_handler:
+        class: ApiBundle\Handler\CurrencyHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Currency
+        tags:
+            - { name: knp_paginator.injectable }
+    api.vehicle_handler:
+        class: ApiBundle\Handler\VehicleHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Vehicle
+            - true
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.equipment_handler:
+        class: ApiBundle\Handler\EquipmentHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Equipment
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.model_handler:
+        class: ApiBundle\Handler\ModelHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Model
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.bodystyle_handler:
+        class: ApiBundle\Handler\BodystyleHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Bodystyle
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.manufacturer_handler:
+        class: ApiBundle\Handler\ManufacturerHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Manufacturer
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.variant_handler:
+        class: ApiBundle\Handler\VariantHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Variant
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.engine_handler:
+        class: ApiBundle\Handler\EngineHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Engine
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.colour_handler:
+        class: ApiBundle\Handler\ColourHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Colour
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.country_handler:
+        class: ApiBundle\Handler\CountryHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Country
+        tags:
+            - { name: knp_paginator.injectable }
+    api.transmission_handler:
+        class: ApiBundle\Handler\TransmissionHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Transmission
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.wheelbase_handler:
+        class: ApiBundle\Handler\WheelbaseHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Wheelbase
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.trim_handler:
+        class: ApiBundle\Handler\TrimHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\Trim
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.trimmaterial_handler:
+        class: ApiBundle\Handler\TrimMaterialHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\TrimMaterial
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.trimshade_handler:
+        class: ApiBundle\Handler\TrimShadeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\TrimShade
+        calls:
+            - [setFormFactory, ['@form.factory']]
+        tags:
+            - { name: knp_paginator.injectable }
+    api.bodystyle_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\BodystyleManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }
+    api.colour_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\ColourManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }
+    api.engine_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\EngineManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }
+    api.equipment_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\EquipmentManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }
+    api.transmission_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\TransmissionManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }
+    api.trim_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\TrimManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }
+    api.trim_material_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\TrimMaterialManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }
+    api.variant_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\VariantManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }
+    api.wheelbase_manufacturer_code_handler:
+        class: ApiBundle\Handler\ManufacturerCodeHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - IMS\CommonBundle\Entity\WheelbaseManufacturerCode
+        tags:
+            - { name: knp_paginator.injectable }

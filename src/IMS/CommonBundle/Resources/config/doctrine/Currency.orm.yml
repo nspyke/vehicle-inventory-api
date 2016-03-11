@@ -1,0 +1,43 @@
+IMS\CommonBundle\Entity\Currency:
+  type: entity
+  table: currency
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 50
+    isoCode:
+      type: string
+      length: 3
+      column: iso_code
+    symbol:
+      type: string
+      length: 8
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+  uniqueConstraints:
+    uidx_currency_iso_code:
+      columns: [iso_code]
+  manyToMany:
+    countries:
+      targetEntity: IMS\CommonBundle\Entity\Country
+      mappedBy: currencies

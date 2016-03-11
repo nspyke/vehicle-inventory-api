@@ -1,0 +1,15 @@
+IMS\CommonBundle\Entity\TrimShade:
+  exclusion_policy: all
+  properties:
+    id:
+      expose: true
+    name:
+      expose: true
+    trim:
+      expose: true
+    dateAdded:
+      expose: true
+    dateUpdated:
+      expose: true
+    status:
+      expose: true

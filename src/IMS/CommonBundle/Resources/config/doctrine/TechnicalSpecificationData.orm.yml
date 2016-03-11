@@ -1,0 +1,165 @@
+IMS\CommonBundle\Entity\TechnicalSpecificationData:
+  type: entity
+  table: technical_specification_data
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    engineCylinder:
+      type: string
+      length: 250
+      column: engine_cylinder
+      nullable: true
+    maxPower:
+      type: string
+      length: 250
+      column: max_power
+      nullable: true
+    maxTorque:
+      type: string
+      length: 250
+      column: max_torque
+      nullable: true
+    acceleration:
+      type: string
+      length: 250
+      column: acceleration
+      nullable: true
+    maxSpeed:
+      type: string
+      length: 250
+      column: max_speed
+      nullable: true
+    fuelEconomyOne:
+      type: string
+      length: 250
+      column: fuel_economy_one
+      nullable: true
+    fuelEconomyTwo:
+      type: string
+      length: 250
+      column: fuel_economy_two
+      nullable: true
+    fuelEconomyThree:
+      type: string
+      length: 250
+      column: fuel_economy_three
+      nullable: true
+    fuelTankCapacity:
+      type: string
+      length: 250
+      column: fuel_tank_capacity
+      nullable: true
+    co2Emissions:
+      type: string
+      length: 250
+      column: co2_emissions
+      nullable: true
+    vehicleTaxBand:
+      type: string
+      length: 250
+      column: vehicle_tax_band
+      nullable: true
+    vehicleTaxPrice:
+      type: string
+      length: 250
+      column: vehicle_tax_price
+      nullable: true
+    length:
+      type: string
+      length: 250
+      column: length
+      nullable: true
+    width:
+      type: string
+      length: 250
+      column: width
+      nullable: true
+    height:
+      type: string
+      length: 250
+      column: height
+      nullable: true
+    wheelBase:
+      type: string
+      length: 250
+      column: wheel_base
+      nullable: true
+    loadspaceWidth:
+      type: string
+      length: 250
+      column: loadspace_width
+      nullable: true
+    loadspaceVolume:
+      type: string
+      length: 250
+      column: loadspace_volume
+      nullable: true
+    vehicleWeight:
+      type: string
+      length: 250
+      column: vehicle_weight
+      nullable: true
+    towingBrakedTrailer:
+      type: string
+      length: 250
+      column: towing_braked_trailer
+      nullable: true
+    towingUnbrakedTrailer:
+      type: string
+      length: 250
+      column: towing_unbraked_trailer
+      nullable: true
+    turningCircle:
+      type: string
+      length: 250
+      column: turning_circle
+      nullable: true
+    groundClearance:
+      type: string
+      length: 250
+      column: ground_clearance
+      nullable: true
+    approachAngle:
+      type: string
+      length: 250
+      column: approach_angle
+      nullable: true
+    rampBreakoverAngle:
+      type: string
+      length: 250
+      column: ramp_breakover_angle
+      nullable: true
+    departureAngle:
+      type: string
+      length: 250
+      column: departure_angle
+      nullable: true
+    wadingDepth:
+      type: string
+      length: 250
+      column: wading_depth
+      nullable: true
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    technicalSpecifications:
+      targetEntity: IMS\CommonBundle\Entity\TechnicalSpecification
+      mappedBy:     technicalSpecificationData

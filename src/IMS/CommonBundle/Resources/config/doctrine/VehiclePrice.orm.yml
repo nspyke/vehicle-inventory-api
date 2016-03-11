@@ -1,0 +1,38 @@
+IMS\CommonBundle\Entity\VehiclePrice:
+  type: entity
+  table: vehicle_price
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    price:
+      type: decimal
+      precision: 14
+      scale: 2
+    priceType:
+      type: integer
+      length: 2
+      column: price_type
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+
+  manyToOne:
+    currency:
+      targetEntity: IMS\CommonBundle\Entity\Currency
+    vehicle:
+      targetEntity: IMS\CommonBundle\Entity\Vehicle
+      inversedBy:   vehiclePrices

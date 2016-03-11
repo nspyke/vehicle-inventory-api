@@ -1,0 +1,22 @@
+IMS\CommonBundle\Entity\WheelbaseManufacturerCode:
+  type: entity
+  table: wheelbase_manufacturer_code
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    code:
+      type: string
+      length: 50
+  uniqueConstraints:
+    idx_trim_material_id2:
+      columns: [wheelbase_id, code]
+  manyToOne:
+    wheelbase:
+      targetEntity: IMS\CommonBundle\Entity\Wheelbase
+      inversedBy: manufacturerCodes
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: wheelbaseManufacturerCodes

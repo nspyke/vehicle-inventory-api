@@ -1,0 +1,27 @@
+IMS\CommonBundle\Entity\Engine:
+  exclusion_policy: all
+  properties:
+    id:
+      expose: true
+    name:
+      expose: true
+    cylinders:
+      expose: true
+    valves:
+      expose: true
+    bhp:
+      expose: true
+    turbo:
+      expose: true
+    supercharger:
+      expose: true
+    isVerified:
+      expose: true
+    dateAdded:
+      expose: true
+    dateUpdated:
+      expose: true
+    status:
+      expose: true
+    fuel:
+      expose: true

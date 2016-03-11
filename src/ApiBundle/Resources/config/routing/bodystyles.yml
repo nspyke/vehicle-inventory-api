@@ -1,0 +1,35 @@
+bodystyle_id:
+    path: /bodystyles/{id}
+    defaults:  { _controller: ApiBundle:Bodystyle:getOneById }
+    methods: [GET]
+    requirements:
+        id: "\d+"
+        
+bodystyle_id_patch:
+    path: /bodystyles/{id}
+    defaults:  { _controller: ApiBundle:Bodystyle:patch }
+    methods: [PATCH]
+    requirements:
+        id: "\d+" 
+        
+bodystyle_put:
+    path: /bodystyles/{id}
+    defaults:  { _controller: ApiBundle:Bodystyle:put }
+    methods: [PUT]
+    requirements:
+        id: "\d+"
+        
+bodystyle_post:
+    path: /bodystyles
+    defaults:  { _controller: ApiBundle:Bodystyle:post }
+    methods: [POST]
+    
+bodystyle_list:
+    path: /bodystyles
+    defaults:  { _controller: ApiBundle:Bodystyle:getList }
+    methods: [GET]
+
+bodystyle_mc_list:
+    path: /bodystyles/manufacturer-codes
+    defaults:  { _controller: ApiBundle:Bodystyle:getManufacturerCodesList }
+    methods: [GET]

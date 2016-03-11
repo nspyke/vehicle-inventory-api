@@ -1,0 +1,12 @@
+IMS\CommonBundle\Entity\Translation\FuelTranslation:
+  type: entity
+  table: fuel_translation
+  repositoryClass: Gedmo\Translatable\Entity\Repository\TranslationRepository
+  extends: IMS\CommonBundle\Entity\Translation\AbstractTranslation
+  indexes:
+    idx_fuel_translation:
+      columns:
+        - locale
+        - object_class
+        - field
+        - foreign_key

@@ -1,0 +1,45 @@
+IMS\CommonBundle\Entity\TrimShade:
+  type: entity
+  table: trim_shade
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\TrimShadeTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    isVerified:
+      type: boolean
+      column: is_verified
+    status:
+      type: integer
+      length: 2
+  manyToOne:
+    trim:
+      targetEntity: IMS\CommonBundle\Entity\Trim
+      inversedBy: trimShades
+      joinColumn:
+        name: trim_id
+        referencedColumnName: id
+

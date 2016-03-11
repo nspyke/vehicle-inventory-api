@@ -1,0 +1,15 @@
+IMS\CommonBundle\Entity\Currency:
+  exclusion_policy: all
+  properties:
+    id:
+      expose: true
+    name:
+      expose: true
+    isoCode:
+      expose: true
+    dateAdded:
+      expose: true
+    dateUpdated:
+      expose: true
+    status:
+      expose: true

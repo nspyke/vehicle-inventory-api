@@ -1,0 +1,12 @@
+IMS\CommonBundle\Entity\Translation\EquipmentTranslation:
+  type: entity
+  table: equipment_translation
+  repositoryClass: Gedmo\Translatable\Entity\Repository\TranslationRepository
+  extends: IMS\CommonBundle\Entity\Translation\AbstractTranslation
+  indexes:
+    idx_equipment_translation:
+      columns:
+        - locale
+        - object_class
+        - field
+        - foreign_key

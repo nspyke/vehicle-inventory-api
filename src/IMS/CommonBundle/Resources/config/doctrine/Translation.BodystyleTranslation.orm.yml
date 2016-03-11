@@ -1,0 +1,12 @@
+IMS\CommonBundle\Entity\Translation\BodystyleTranslation:
+  type: entity
+  table: bodystyle_translation
+  repositoryClass: Gedmo\Translatable\Entity\Repository\TranslationRepository
+  extends: IMS\CommonBundle\Entity\Translation\AbstractTranslation
+  indexes:
+    idx_bodystyle_translation:
+      columns:
+        - locale
+        - object_class
+        - field
+        - foreign_key

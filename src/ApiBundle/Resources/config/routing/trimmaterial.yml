@@ -1,0 +1,36 @@
+trim_materials:
+    path:     /trim-materials
+    defaults: { _controller: "ApiBundle:TrimMaterial:getList" }
+    methods:  GET
+
+trim_materials_mc_list:
+    path:     /trim-materials/manufacturer-codes
+    defaults: { _controller: "ApiBundle:TrimMaterial:getManufacturerCodesList" }
+    methods:  GET
+
+trim_materials_id:
+    path:     /trim-materials/{id}
+    defaults: { _controller: "ApiBundle:TrimMaterial:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+trim_materials_post:
+    path:     /trim-materials
+    defaults: { _controller: "ApiBundle:TrimMaterial:post" }
+    methods:  POST
+
+trim_materials_id_patch:
+    path:     /trim-materials/{id}
+    defaults: { _controller: "ApiBundle:TrimMaterial:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+
+trim_materials_id_put:
+    path:     /trim-materials/{id}
+    defaults: { _controller: "ApiBundle:TrimMaterial:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+

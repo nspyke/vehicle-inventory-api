@@ -1,0 +1,57 @@
+IMS\CommonBundle\Entity\Equipment:
+  type: entity
+  table: equipment
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\EquipmentTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      length: 11
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    isVerified:
+      type: boolean
+      column: is_verified
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    manufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\EquipmentManufacturerCode
+      mappedBy: equipment
+  manyToOne:
+    equipmentType:
+      targetEntity: IMS\CommonBundle\Entity\EquipmentType
+      inversedBy: equipment
+
+  manyToMany:
+    models:
+      targetEntity: IMS\CommonBundle\Entity\Model
+      mappedBy: equipment
+    vehicles:
+      targetEntity: IMS\CommonBundle\Entity\Vehicle
+      mappedBy: equipment
+    manufacturers:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      mappedBy: equipment

@@ -1,0 +1,16 @@
+IMS\CommonBundle\Entity\Transmission:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        dateAdded:
+            - DateTime: ~
+        dateUpdated:
+            - DateTime: ~
+        isVerified:
+            - Type:
+                type: boolean
+        status:
+            - Type:
+                type: integer

@@ -1,0 +1,13 @@
+IMS\CommonBundle\Entity\Trim:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        dateAdded:
+            - DateTime: ~
+        dateUpdated:
+            - DateTime: ~
+        status:
+            - Type:
+                type: integer

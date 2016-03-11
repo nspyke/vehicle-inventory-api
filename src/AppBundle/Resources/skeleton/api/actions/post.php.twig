@@ -1,0 +1,40 @@
+    /**
+{% block phpdoc_method_header %}
+     * Creates a new {{ entity_class }} entity.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+    * @ApiDoc(
+    *      resource = true,
+    *      section="{{ entity_class }}",
+    *      description="Create an {{ entity_class }}",
+    *      input="{{ namespace }}\Form\{{ entity_class }}Type",
+    *      statusCodes={
+    *          201="{{ entity_class }} created successfully",
+    *          400="Bad request. Validation error"
+    *      }
+    * )
+    * @param Request $request
+    * @return \FOS\RestBundle\View\View
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function postAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        try {
+            $handler = $this->get('{{ handler_service_name }}');
+            $entity = $handler->post($request);
+
+            return $this->routeRedirectView('{{ route_name_prefix }}_id', ['id' => $entity->getId()]);
+
+        } catch (InvalidFormException $exception) {
+
+            return $exception->getForm();
+        }
+{% endblock method_body %}
+
+    }
+
+

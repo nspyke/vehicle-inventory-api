@@ -1,0 +1,30 @@
+manufacturers_post:
+    path: /manufacturers
+    defaults:  { _controller: ApiBundle:Manufacturer:post }
+    methods: [POST]
+
+manufacturers_put:
+    path: /manufacturers/{id}
+    defaults:  { _controller: ApiBundle:Manufacturer:put }
+    methods: [PUT]
+    requirements:
+        id: "\d+"
+
+manufacturers_list:
+    path: /manufacturers
+    defaults:  { _controller: ApiBundle:Manufacturer:getList }
+    methods: [GET]
+    
+manufacturers_id_patch:
+    path: /manufacturers/{id}
+    defaults:  { _controller: ApiBundle:Manufacturer:patch }
+    methods: [PATCH]
+    requirements:
+        id: "\d+"        
+
+manufacturers_id:
+    path: /manufacturers/{id}
+    defaults:  { _controller: ApiBundle:Manufacturer:getOneById }
+    methods: [GET]
+    requirements:
+        id: "\d+"       

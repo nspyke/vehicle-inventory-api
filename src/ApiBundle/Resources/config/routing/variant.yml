@@ -1,0 +1,36 @@
+variants:
+    path:     /variants
+    defaults: { _controller: "ApiBundle:Variant:getList" }
+    methods:  GET
+
+variants_mc_list:
+    path:     /variants/manufacturer-codes
+    defaults: { _controller: "ApiBundle:Variant:getManufacturerCodesList" }
+    methods:  GET
+
+variants_id:
+    path:     /variants/{id}
+    defaults: { _controller: "ApiBundle:Variant:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+variants_post:
+    path:     /variants
+    defaults: { _controller: "ApiBundle:Variant:post" }
+    methods:  POST
+
+variants_id_patch:
+    path:     /variants/{id}
+    defaults: { _controller: "ApiBundle:Variant:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+
+variants_id_put:
+    path:     /variants/{id}
+    defaults: { _controller: "ApiBundle:Variant:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+

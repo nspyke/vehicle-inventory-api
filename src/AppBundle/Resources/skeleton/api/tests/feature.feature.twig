@@ -1,0 +1,110 @@
+Feature:
+    Manage {{ entity_class }}
+
+{% if 'getOne' in actions %}
+    Scenario: Find {{ entity_class }} from ID
+        When I send a GET request to "/v1/{{ route_prefix }}/1"
+        Then the response code should be 200
+        And the response is json
+{% endif %}
+
+{% if 'getList' in actions %}
+    Scenario Outline: Find {{ entity_class }} with filters
+        When I send a GET request to "/v1/{{ route_prefix }}?_limit=<limit>&_page=<page>"
+        Then the response code should be 200
+        And the response is json
+        And the data has <number of results> results
+        And the page index should be <page>
+
+    Examples:
+        | limit  | page    | number of results |
+        | 15     | 1         | 15                |
+        | 15     | 2         | 15                |
+{% endif %}
+
+{% if 'post' in actions %}
+    Scenario: Add a new {{ entity_class }}
+        Given that I want to add "{{ entity_class | lower }}"
+        When I send a POST request to "/v1/{{ route_prefix }}" with body:
+            """
+                {
+                    "{{ form_type_name }}": {
+{% for field, value in sampledata %}
+                        "{{ field }}": {{ value }}{% if not loop.last %},{% endif %}
+
+{% endfor %}
+
+                    }
+                }
+            """
+
+        Then the response code should be 201
+        And the response is empty
+        And the response header Location matches "\/v1\/{{ route_prefix }}\/\d+"
+{% endif %}
+
+{% if 'patch' in actions %}
+    Scenario: Update an existing {{ entity_class }}
+        Given that I have a "{{ entity_class | lower }}"
+        And the "id" is "1"
+        And the id already exists in database
+        When I send a PATCH request to "/v1/{{ route_prefix }}/1" with body:
+            """
+            {
+                "{{ form_type_name }}": {
+{% for field, value in sampledata %}
+                    "{{ field }}": {{ value }}{% if not loop.last %},{% endif %}
+
+{% endfor %}
+
+                }
+            }
+            """
+        Then the response is empty
+        And the response code should be 204
+        And the response header Location matches "\/v1\/{{ route_prefix }}\/\d+"
+
+{% endif %}
+
+{% if 'put' in actions %}
+    Scenario: Update an existing {{ entity_class }}
+        Given that I have a "{{ entity_class | lower }}"
+        And the "id" is "1"
+        And the id already exists in database
+        When I send a PUT request to "/v1/{{ route_prefix }}/1" with body:
+            """
+            {
+                "{{ form_type_name }}": {
+{% for field, value in sampledata %}
+                    "{{ field }}": {{ value }}{% if not loop.last %},{% endif %}
+
+{% endfor %}
+
+                }
+            }
+            """
+        Then the response is empty
+        And the response code should be 204
+        And the response header Location matches "\/v1\/{{ route_prefix }}\/\d+"
+
+    Scenario: Insert a {{ entity_class }} when does not exist
+        Given that I have a "{{ entity_class | lower }}"
+        And the "id" is "99"
+        And the "id" does not exist in database
+        When I send a PUT request to "/v1/{{ route_prefix }}/99" with body:
+            """
+            {
+                "{{ form_type_name }}": {
+{% for field, value in sampledata %}
+                    "{{ field }}": {{ value }}{% if not loop.last %},{% endif %}
+
+{% endfor %}
+
+                }
+            }
+            """
+        Then the response is empty
+        And the response code should be 201
+        And the response header Location matches "\/v1\/{{ route_prefix }}\/\d+"
+
+{% endif %}

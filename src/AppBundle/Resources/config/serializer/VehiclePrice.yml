@@ -1,0 +1,15 @@
+IMS\CommonBundle\Entity\VehiclePrice:
+  exclusion_policy: all
+  properties:
+    id:
+      expose: true
+    price:
+      expose: true
+    priceType:
+      expose: true
+    currency:
+      expose: true
+    dateAdded:
+      expose: true
+    dateUpdated:
+      expose: true

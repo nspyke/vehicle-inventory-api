@@ -1,0 +1,20 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+        - RestContext
+  extensions:
+    VIPSoft\DoctrineDataFixturesExtension\Extension:
+      lifetime:    feature
+      autoload:    true
+      directories: ~
+      fixtures:    ~
+    Behat\Symfony2Extension: ~
+    Behat\WebApiExtension:
+      base_uri: http://ims-api.dev/app_test.php/
+    Behat\MinkExtension:
+      base_url: http://ims-api.dev/app_test.php/
+      sessions:
+        default:
+          symfony2: ~

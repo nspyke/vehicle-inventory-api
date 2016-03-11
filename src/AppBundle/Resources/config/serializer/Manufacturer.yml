@@ -1,0 +1,17 @@
+IMS\CommonBundle\Entity\Manufacturer:
+  exclusion_policy: all
+  properties:
+    id:
+      expose: true
+    name:
+      expose: true
+    isVerified:
+      expose: true
+    code:
+      expose: true
+    dateAdded:
+      expose: true
+    dateUpdated:
+      expose: true
+    status:
+      expose: true

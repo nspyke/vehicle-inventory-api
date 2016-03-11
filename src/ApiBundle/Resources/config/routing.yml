@@ -1,0 +1,44 @@
+api_trim-shades:
+    resource: "@ApiBundle/Resources/config/routing/trimshade.yml"
+
+api_trim-materials:
+    resource: "@ApiBundle/Resources/config/routing/trimmaterial.yml"
+
+api_trims:
+    resource: "@ApiBundle/Resources/config/routing/trim.yml"
+
+api_wheelbases:
+    resource: "@ApiBundle/Resources/config/routing/wheelbase.yml"
+
+api_currencies:
+    resource: "@ApiBundle/Resources/config/routing/currency.yml"
+
+api_countries:
+    resource: "@ApiBundle/Resources/config/routing/country.yml"
+
+api_transmissions:
+    resource: "@ApiBundle/Resources/config/routing/transmission.yml"
+
+api_colours:
+    resource: "@ApiBundle/Resources/config/routing/colour.yml"
+
+api_engines:
+    resource: "@ApiBundle/Resources/config/routing/engine.yml"
+
+api_variants:
+    resource: "@ApiBundle/Resources/config/routing/variant.yml"
+
+vehicles:
+    resource: "@ApiBundle/Resources/config/routing/vehicles.yml"
+
+equipment:
+    resource: "@ApiBundle/Resources/config/routing/equipment.yml"
+
+models:
+    resource: "@ApiBundle/Resources/config/routing/models.yml"
+
+bodystyles:
+    resource: "@ApiBundle/Resources/config/routing/bodystyles.yml"
+
+manufacturers:
+    resource: "@ApiBundle/Resources/config/routing/manufacturers.yml"

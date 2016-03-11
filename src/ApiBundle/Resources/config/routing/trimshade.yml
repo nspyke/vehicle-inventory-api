@@ -1,0 +1,31 @@
+trim-shades:
+    path:     /trim-shades
+    defaults: { _controller: "ApiBundle:TrimShade:getList" }
+    methods:  GET
+
+trim-shades_id:
+    path:     /trim-shades/{id}
+    defaults: { _controller: "ApiBundle:TrimShade:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+trim-shades_post:
+    path:     /trim-shades
+    defaults: { _controller: "ApiBundle:TrimShade:post" }
+    methods:  POST
+
+trim-shades_id_patch:
+    path:     /trim-shades/{id}
+    defaults: { _controller: "ApiBundle:TrimShade:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+
+trim-shades_id_put:
+    path:     /trim-shades/{id}
+    defaults: { _controller: "ApiBundle:TrimShade:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+

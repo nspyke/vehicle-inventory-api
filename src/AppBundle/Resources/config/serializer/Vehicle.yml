@@ -1,0 +1,87 @@
+IMS\CommonBundle\Entity\Vehicle:
+  exclusion_policy: all
+  properties:
+    id:
+      expose: true
+    vin:
+      expose: true
+    reg:
+      expose: true
+    vehicleStatus:
+      expose: true
+    doors:
+      expose: true
+    seats:
+      expose: true
+    drive:
+      expose: true
+    odometer:
+      expose: true
+    odometerCanonical:
+      expose: true
+    odometerUnit:
+      expose: true
+    dateRegistered:
+      expose: true
+    dateAdded:
+      expose: true
+    dateUpdated:
+      expose: true
+    isNew:
+      expose: true
+    isManufacturerApproved:
+      expose: true
+    isFeatured:
+      expose: true
+    isVisible:
+      expose: true
+    status:
+      expose: true
+    manufacturer:
+      expose: true
+      max_depth: 1
+    model:
+      expose: true
+      max_depth: 1
+    variant:
+      expose: true
+      max_depth: 1
+    dealer:
+      expose: true
+      max_depth: 1
+    transmission:
+      expose: true
+      max_depth: 1
+    engine:
+      expose: true
+      max_depth: 1
+    bodystyle:
+      expose: true
+      max_depth: 1
+    colourExterior:
+      expose: true
+      max_depth: 1
+    trim:
+      expose: true
+      max_depth: 1
+    trimMaterial:
+      expose: true
+      max_depth: 1
+    trimShade:
+      expose: true
+      max_depth: 1
+    wheelbase:
+      expose: true
+      max_depth: 1
+    equipment:
+      expose: true
+      max_depth: 1
+    technicalSpecificationData:
+      expose: true
+    equipment:
+      expose: true
+    package:
+      expose: true
+    vehiclePrices:
+      expose: true
+

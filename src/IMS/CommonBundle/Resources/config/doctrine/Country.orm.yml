@@ -1,0 +1,53 @@
+IMS\CommonBundle\Entity\Country:
+  type: entity
+  table: country
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\CountryTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    isoCode:
+      type: string
+      length: 3
+      column: iso_code
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+  uniqueConstraints:
+    uidx_country_iso_code:
+      columns: [iso_code]
+  manyToMany:
+    currencies:
+      targetEntity: IMS\CommonBundle\Entity\Currency
+      inversedBy: countries
+      joinTable:
+        name: currency_country
+        joinColumns:
+          country_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          currency_id:
+            referencedColumnName: id

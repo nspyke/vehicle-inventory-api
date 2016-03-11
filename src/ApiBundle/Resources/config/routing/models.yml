@@ -1,0 +1,28 @@
+models_list:
+    path: /models
+    defaults:  { _controller: ApiBundle:Model:getList }
+    methods: [GET]
+
+models_post:
+    path: /models
+    defaults:  { _controller: ApiBundle:Model:post }
+    methods: [POST]
+
+models_put:
+    path: /models/{id}
+    defaults:  { _controller: ApiBundle:Model:put }
+    methods: [PUT]
+
+models_id:
+    path: /models/{id}
+    defaults:  { _controller: ApiBundle:Model:getOneById }
+    methods: [GET]
+    requirements:
+        id: "\d+"
+
+models_id_patch:
+    path: /models/{id}
+    defaults:  { _controller: ApiBundle:Model:patch }
+    methods: [PATCH]
+    requirements:
+        id: "\d+"

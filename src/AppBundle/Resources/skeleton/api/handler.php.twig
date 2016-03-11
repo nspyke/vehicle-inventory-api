@@ -1,0 +1,154 @@
+<?php
+/**
+ * {{ entity_class }} Handler for {{ entity_class }} operations
+ *
+ * @author {{ usersName }} <{{ usersEmail }}>
+ * @package api
+ * @category handler
+ * @since {{ date_since }}
+ */
+
+namespace {{ namespace }}\Handler;
+
+
+use {{ entity }};
+use {{ namespace }}\Form\{{ entity_class }}Type;
+use ApiBundle\Request\Query;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
+class {{ entity_class }}Handler extends AbstractHandler implements ApiHandlerInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function getList(Request $request)
+    {
+{% if 'getList' in actions %}
+        return $this->handleList(
+            $this->repository->createQueryBuilder('{{ entity_class | lower }}'),
+            new Query($request->query)
+        );
+{% else %}
+        throw new \BadMethodCallException(sprintf('Method "%s" is not allowed', __METHOD__));
+
+{% endif %}
+    }
+
+    /**
+     * @param integer $id
+     * @return object
+     */
+    public function getOneById($id)
+    {
+{% if 'getOne' in actions %}
+        $entity = $this->repository->find($id);
+
+        if (!$entity instanceof {{ entity_class }}) {
+            throw new NotFoundHttpException('{{ entity_class }} not found');
+        }
+
+        return $entity;
+{% else %}
+        throw new \BadMethodCallException(sprintf('Method "%s" is not allowed', __METHOD__));
+
+{% endif %}
+    }
+
+    /**
+     * @param string $field
+     * @param string $value
+     * @return {{ entity_class }}
+     */
+    public function getOneBy($field, $value)
+    {
+{% if 'getOne' in actions %}
+        $entity = $this->repository->findOneBy([$field => $value]);
+
+        if (!$entity instanceof {{ entity_class }}) {
+            throw new NotFoundHttpException('{{ entity_class }} not found');
+        }
+
+        return $entity;
+{% else %}
+        throw new \BadMethodCallException(sprintf('Method "%s" is not allowed', __METHOD__));
+
+{% endif %}
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function post(Request $request)
+    {
+{% if 'post' in actions %}
+        return $this->processForm(new {{ entity_class }}(), new {{ entity_class }}Type(), $request, 'POST');
+{% else %}
+        throw new \BadMethodCallException(sprintf('Method "%s" is not allowed', __METHOD__));
+
+{% endif %}
+    }
+
+    /**
+     * @param integer $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function patch($id, Request $request)
+    {
+{% if 'patch' in actions %}
+        $entity = $this->getOneById($id);
+
+        return $this->processForm($entity, new {{ entity_class }}Type(), $request, $request->getMethod());
+{% else %}
+        throw new \BadMethodCallException(sprintf('Method "%s" is not allowed', __METHOD__));
+
+{% endif %}
+    }
+
+    /**
+     * @param integer $id
+     * @param Request $request
+     * @return HandlerResponse
+     */
+    public function put($id, Request $request)
+    {
+{% if 'put' in actions %}
+        $handlerResponse = new HandlerResponse();
+        $handlerResponse->updating();
+
+        $entity = $this->repository->find($id);
+
+        if ($entity === null) {
+            $entity = new {{ entity_class }}();
+            $handlerResponse->creating();
+        }
+
+        $handlerResponse->entity = $this->processForm($entity, new {{ entity_class }}Type(), $request, 'PUT');
+
+        return $handlerResponse;
+{% else %}
+        throw new \BadMethodCallException(sprintf('Method "%s" is not allowed', __METHOD__));
+
+{% endif %}
+    }
+
+    /**
+     * @param integer $id
+     * @return void
+     */
+    public function delete($id)
+    {
+{% if 'delete' in actions %}
+        $entity = $this->getOneById($id);
+
+        $this->objectManager->remove($entity);
+        $this->objectManager->flush();
+{% else %}
+        throw new \BadMethodCallException(sprintf('Method "%s" is not allowed', __METHOD__));
+
+{% endif %}
+    }
+}

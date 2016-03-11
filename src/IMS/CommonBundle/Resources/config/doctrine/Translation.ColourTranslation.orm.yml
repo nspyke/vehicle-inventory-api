@@ -1,0 +1,12 @@
+IMS\CommonBundle\Entity\Translation\ColourTranslation:
+  type: entity
+  table: colour_translation
+  repositoryClass: Gedmo\Translatable\Entity\Repository\TranslationRepository
+  extends: IMS\CommonBundle\Entity\Translation\AbstractTranslation
+  indexes:
+    idx_colour_translation:
+      columns:
+        - locale
+        - object_class
+        - field
+        - foreign_key

@@ -1,0 +1,201 @@
+IMS\CommonBundle\Entity\Manufacturer:
+  type: entity
+  table: manufacturer
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\ManufacturerTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    isVerified:
+      type: boolean
+      column: is_verified
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+    code:
+      type: string
+      length: 50
+  uniqueConstraints:
+    uidx_manufacturer_code:
+      columns: [code]
+
+  oneToMany:
+    vehicles:
+      targetEntity: IMS\CommonBundle\Entity\Vehicle
+      mappedBy: manufacturer
+    bodystyleManufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\BodystyleManufacturerCode
+      mappedBy: manufacturer
+    colourManufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\ColourManufacturerCode
+      mappedBy: manufacturer
+    engineManufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\EngineManufacturerCode
+      mappedBy: manufacturer
+    equipmentManufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\EquipmentManufacturerCode
+      mappedBy: manufacturer
+    equipmentTypes:
+      targetEntity: IMS\CommonBundle\Entity\EquipmentType
+      mappedBy: manufacturer
+    modelGroups:
+      targetEntity: IMS\CommonBundle\Entity\ModelGroup
+      mappedBy: manufacturer
+    transmissionManufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\TransmissionManufacturerCode
+      mappedBy: manufacturer
+    trimManufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\TrimManufacturerCode
+      mappedBy: manufacturer
+    trimMaterialManufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\TrimMaterialManufacturerCode
+      mappedBy: manufacturer
+    wheelbaseManufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\WheelbaseManufacturerCode
+      mappedBy: manufacturer
+
+  manyToMany:
+    bodystyles:
+      targetEntity: IMS\CommonBundle\Entity\Bodystyle
+      inversedBy: manufacturers
+      joinTable:
+        name: bodystyle_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          bodystyle_id:
+            referencedColumnName: id
+    colours:
+      targetEntity: IMS\CommonBundle\Entity\Colour
+      inversedBy: manufacturers
+      joinTable:
+        name: colour_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          colour_id:
+            referencedColumnName: id
+    dealers:
+      targetEntity: IMS\CommonBundle\Entity\Dealer
+      inversedBy: manufacturers
+      joinTable:
+        name: dealer_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          dealer_id:
+            referencedColumnName: id
+    engines:
+      targetEntity: IMS\CommonBundle\Entity\Engine
+      inversedBy: manufacturers
+      joinTable:
+        name: engine_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          engine_id:
+            referencedColumnName: id
+    equipment:
+      targetEntity: IMS\CommonBundle\Entity\Equipment
+      inversedBy: manufacturers
+      joinTable:
+        name: equipment_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          equipment_id:
+            referencedColumnName: id
+    models:
+      targetEntity: IMS\CommonBundle\Entity\Model
+      inversedBy: manufacturers
+      joinTable:
+        name: model_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          model_id:
+            referencedColumnName: id
+    transmissions:
+      targetEntity: IMS\CommonBundle\Entity\Transmission
+      inversedBy: manufacturers
+      joinTable:
+        name: transmission_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          transmission_id:
+            referencedColumnName: id
+    trims:
+      targetEntity: IMS\CommonBundle\Entity\Trim
+      inversedBy: manufacturers
+      joinTable:
+        name: trim_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          trim_id:
+            referencedColumnName: id
+    trimMaterials:
+      targetEntity: IMS\CommonBundle\Entity\TrimMaterial
+      inversedBy: manufacturers
+      joinTable:
+        name: trim_material_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          trim_material_id:
+            referencedColumnName: id
+    variants:
+      targetEntity: IMS\CommonBundle\Entity\Variant
+      inversedBy: manufacturers
+      joinTable:
+        name: variant_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          variant_id:
+            referencedColumnName: id
+    wheelbases:
+      targetEntity: IMS\CommonBundle\Entity\Wheelbase
+      inversedBy: manufacturers
+      joinTable:
+        name: wheelbase_manufacturer
+        joinColumns:
+          manufacturer_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          wheelbase_id:
+            referencedColumnName: id

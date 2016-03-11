@@ -1,0 +1,36 @@
+engines:
+    path:     /engines
+    defaults: { _controller: "ApiBundle:Engine:getList" }
+    methods:  GET
+
+engines_mc_list:
+    path:     /engines/manufacturer-codes
+    defaults: { _controller: "ApiBundle:Engine:getManufacturerCodesList" }
+    methods:  GET
+
+engines_id:
+    path:     /engines/{id}
+    defaults: { _controller: "ApiBundle:Engine:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+engines_post:
+    path:     /engines
+    defaults: { _controller: "ApiBundle:Engine:post" }
+    methods:  POST
+
+engines_id_patch:
+    path:     /engines/{id}
+    defaults: { _controller: "ApiBundle:Engine:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+
+engines_id_put:
+    path:     /engines/{id}
+    defaults: { _controller: "ApiBundle:Engine:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+

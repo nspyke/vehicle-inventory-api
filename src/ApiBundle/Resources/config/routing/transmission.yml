@@ -1,0 +1,36 @@
+transmissions:
+    path:     /transmissions
+    defaults: { _controller: "ApiBundle:Transmission:getList" }
+    methods:  GET
+
+transmissions_mc_list:
+    path:     /transmissions/manufacturer-codes
+    defaults: { _controller: "ApiBundle:Transmission:getManufacturerCodesList" }
+    methods:  GET
+
+transmissions_id:
+    path:     /transmissions/{id}
+    defaults: { _controller: "ApiBundle:Transmission:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+transmissions_post:
+    path:     /transmissions
+    defaults: { _controller: "ApiBundle:Transmission:post" }
+    methods:  POST
+
+transmissions_id_patch:
+    path:     /transmissions/{id}
+    defaults: { _controller: "ApiBundle:Transmission:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+
+transmissions_id_put:
+    path:     /transmissions/{id}
+    defaults: { _controller: "ApiBundle:Transmission:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+

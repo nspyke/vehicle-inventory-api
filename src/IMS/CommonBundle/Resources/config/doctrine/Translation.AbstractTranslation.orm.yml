@@ -1,0 +1,25 @@
+IMS\CommonBundle\Entity\Translation\AbstractTranslation:
+  type: mappedSuperclass
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    locale:
+      type: string
+      length: 8
+    objectClass:
+      type: string
+      length: 255
+      column: object_class
+    field:
+      type: string
+      length: 50
+    foreignKey:
+      type: string
+      length: 64
+      column: foreign_key
+    content:
+      type: text
+      nullable: true

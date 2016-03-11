@@ -1,0 +1,18 @@
+IMS\CommonBundle\Entity\Manufacturer:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: code
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        dateAdded:
+            - DateTime: ~
+        dateUpdated:
+            - DateTime: ~
+        isVerified:
+            - Type:
+                type: boolean
+        status:
+            - Type:
+                type: integer

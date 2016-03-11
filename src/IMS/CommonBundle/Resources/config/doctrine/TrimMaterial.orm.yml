@@ -1,0 +1,42 @@
+IMS\CommonBundle\Entity\TrimMaterial:
+  type: entity
+  table: trim_material
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\TrimMaterialTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    manufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\TrimMaterialManufacturerCode
+      mappedBy: trimMaterial
+  manyToMany:
+    manufacturers:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      mappedBy: trimMaterials

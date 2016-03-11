@@ -1,0 +1,12 @@
+IMS\CommonBundle\Entity\Translation\ModelTranslation:
+  type: entity
+  table: model_translation
+  repositoryClass: Gedmo\Translatable\Entity\Repository\TranslationRepository
+  extends: IMS\CommonBundle\Entity\Translation\AbstractTranslation
+  indexes:
+    idx_model_translation:
+      columns:
+        - locale
+        - object_class
+        - field
+        - foreign_key

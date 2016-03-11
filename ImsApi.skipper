@@ -1,0 +1,2109 @@
+<?xml version="1.0"?>
+<skipper version="3.2.0.1219" name="Ims-api" mvc="Symfony2" orm="Doctrine2" uuid="9bf48741-ebe5-4c8f-8445-b3df71cc00be">
+  <module name="\AppBundle\Entity" local-name="AppBundle\Entity" namespace="\AppBundle\Entity" local-namespace="AppBundle\Entity" export-format="Doctrine2Yml" export-path="src/AppBundle/Resources/config/doctrine" uuid="d889ccd2-5a1c-4980-b706-64f6e22aa4e6">
+    <entity name="\AppBundle\Entity\VehicleType" local-name="VehicleType" namespace="\AppBundle\Entity" uuid="77de168e-769c-495a-8237-fc2f01c6b1d6">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="e7977bad-c4e8-44e4-b7c3-197b3422da02"/>
+      <field name="label" type="string" size="50" uuid="a0da839e-426a-447d-8e53-225044ee0767"/>
+      <orm-attributes>
+        <attribute name="export-file-name">VehicleType.orm.yml</attribute>
+        <attribute name="table">vehicle_type</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\Manufacturer" local-name="Manufacturer" namespace="\AppBundle\Entity" uuid="045c4f48-2ff6-4686-a0db-8c58005ce447">
+      <field name="id" type="integer" required="true" primary="true" uuid="dbe2361b-0ad8-4e2c-8ec8-1232f985a21e">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="nameUtf8" type="string" size="80" required="true" uuid="1cfbb385-8f4c-439e-a84b-8b1a0ec1b4e5">
+        <orm-attributes>
+          <attribute name="column">name_utf8</attribute>
+        </orm-attributes>
+      </field>
+      <field name="listOrder" type="integer" required="true" uuid="5bc72dcb-cdd0-4660-a64e-8c29b499090a">
+        <orm-attributes>
+          <attribute name="column">list_order</attribute>
+        </orm-attributes>
+      </field>
+      <field name="verified" type="integer" required="true" uuid="deb87596-aa82-48a2-81df-cd52b28f5158"/>
+      <field name="dateAdded" type="datetime" uuid="636cd3f7-5599-4594-85c3-881276042d15">
+        <orm-attributes>
+          <attribute name="column">date_added</attribute>
+        </orm-attributes>
+      </field>
+      <field name="addedBy" type="integer" uuid="5e07e1d8-39c1-4e2f-9cc9-8aebd02225df">
+        <orm-attributes>
+          <attribute name="column">added_by</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sysStatus" type="integer" required="true" uuid="935fc238-c373-4c92-9e55-0f0e668f027e">
+        <orm-attributes>
+          <attribute name="column">sys_status</attribute>
+        </orm-attributes>
+      </field>
+      <field name="code" type="string" size="20" required="true" uuid="abff86ca-2452-445d-90b2-f6a3c0cad59f"/>
+      <index name="idx_manufacturer" unique="true">
+        <index-field name="id"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">manufacturer</attribute>
+        <attribute name="export-file-name">Manufacturer.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\ModelEquipment" local-name="ModelEquipment" namespace="\AppBundle\Entity" uuid="b98e4dbd-b05e-4d68-ab6c-6bab6e1bf70b">
+      <field name="id" type="integer" required="true" primary="true" uuid="ad2f7770-2700-4158-a80d-1442963da66b">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="std" type="integer" required="true" uuid="21bb25b7-a270-42a7-95e4-7fd0b47a59d4"/>
+      <field name="equipment_id" type="integer" uuid="0a1de115-c47e-43a0-844e-574f412345dd"/>
+      <field name="model_id" type="integer" uuid="c40396b0-02c2-432e-9f16-eaf8c2c8d398"/>
+      <index name="idx_model_equipment" unique="true">
+        <index-field name="model_id"/>
+        <index-field name="equipment_id"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">model_equipment</attribute>
+        <attribute name="export-file-name">ModelEquipment.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\ModelEquipment" to="\AppBundle\Entity\Model" caption="Model ModelEquipment" owner-alias="modelEquipment" inverse-alias="model" many-owner="true" many-inverse="false" uuid="f2ae85e3-20f0-4754-a4eb-16c5e5301e97">
+      <association-field from="model_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\ModelEquipment" to="\AppBundle\Entity\Equipment" caption="Equipment ModelEquipment" owner-alias="modelEquipment" inverse-alias="equipment" many-owner="true" many-inverse="false" uuid="41be6be7-fdbc-42b9-85e8-93c1eef757a4">
+      <association-field from="equipment_id" to="id"/>
+    </association>
+    <entity name="\AppBundle\Entity\Vehicle" local-name="Vehicle" namespace="\AppBundle\Entity" uuid="d0db6302-6dac-468a-ad01-2f56fc9007b3">
+      <field name="id" type="integer" size="11" required="true" primary="true" uuid="496535a6-e8be-4fc6-975e-c87157470ed7">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" size="120" uuid="7d651540-05f3-416e-99c2-7f5a93fde2a6"/>
+      <field name="derivative" type="integer" uuid="40cd08b4-1921-4ebc-a8f2-dc1a8b60eee0"/>
+      <field name="countryId" type="integer" uuid="18b9992f-994d-4496-97a2-b9fffc2b019d">
+        <orm-attributes>
+          <attribute name="column">country_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="make" required="true" uuid="5a53305d-0ce1-4e3d-b4d6-8b765d740104"/>
+      <field name="model" type="integer" required="true" uuid="77818575-579d-46a6-92cf-f307238c57cc"/>
+      <field name="modelYear" type="integer" uuid="1634f96d-29b7-4ea5-92fa-98843f03da8c">
+        <orm-attributes>
+          <attribute name="column">model_year</attribute>
+        </orm-attributes>
+      </field>
+      <field name="variant" type="integer" uuid="60183d06-7cb4-4111-b7cd-022ea9b183b9"/>
+      <field name="dealer" type="integer" uuid="b87a7557-48d9-4ed2-8e35-15d84356f696"/>
+      <field name="location" type="integer" uuid="d245788a-22c7-409e-ae82-649464928014"/>
+      <field name="vin" type="string" size="20" required="true" uuid="7cd28cf2-461f-4ffa-9803-3e96af4be02f"/>
+      <field name="stockNumber" type="string" size="20" uuid="434e6c0e-f074-43cd-ac1e-e583cc7c2d2c">
+        <orm-attributes>
+          <attribute name="column">stock_number</attribute>
+        </orm-attributes>
+      </field>
+      <field name="regNo" type="string" size="20" uuid="54c9e240-8e96-42cf-941b-b42ab7080139">
+        <orm-attributes>
+          <attribute name="column">reg_no</attribute>
+        </orm-attributes>
+      </field>
+      <field name="transmission" type="integer" uuid="a52fd769-dbc9-42f6-9a18-1a4384a87a6f"/>
+      <field name="engine" type="integer" uuid="3620e0d2-cd1f-4841-a47a-ebcb6764302f"/>
+      <field name="bodystyle" type="integer" size="11" uuid="f508a813-60c0-4f7a-b4e2-ab02868ac11a"/>
+      <field name="cabType" type="integer" uuid="f8528e68-e392-4325-af09-60324189b479">
+        <orm-attributes>
+          <attribute name="column">cab_type</attribute>
+        </orm-attributes>
+      </field>
+      <field name="doors" type="integer" uuid="21fb58d3-42ef-432e-b1aa-e93486059028"/>
+      <field name="seats" type="integer" uuid="96ba9b1e-bac5-4b29-a701-f2085be78862"/>
+      <field name="weightGross" type="integer" uuid="47e5fe99-29ca-450c-81b8-178f5209c460">
+        <orm-attributes>
+          <attribute name="column">weight_gross</attribute>
+        </orm-attributes>
+      </field>
+      <field name="length" type="integer" uuid="04841838-38c4-4203-8218-dee11b5e752c"/>
+      <field name="width" type="integer" uuid="3daa33ee-bf42-4e50-9316-cfb36146b531"/>
+      <field name="height" type="integer" uuid="5b87ad4f-d32f-46f6-a5ec-cd46cbf1c924"/>
+      <field name="dateRegistered" type="date" uuid="79f1c174-6eb6-400c-9fca-b3a78342a8ca">
+        <orm-attributes>
+          <attribute name="column">date_registered</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateMotExpiry" type="date" uuid="a737cf8f-36d2-45df-92d9-989f8ee5ee30">
+        <orm-attributes>
+          <attribute name="column">date_mot_expiry</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateSoldFirst" type="datetime" uuid="b40c7b9e-4556-401c-a933-9b341a1a7929">
+        <orm-attributes>
+          <attribute name="column">date_sold_first</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateStock" type="date" uuid="5b49eb63-18ef-410f-8f0a-b0ecee585884">
+        <orm-attributes>
+          <attribute name="column">date_stock</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateOffer" type="datetime" uuid="f066b032-4989-46e7-9234-5678be692691">
+        <orm-attributes>
+          <attribute name="column">date_offer</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateSold" type="datetime" uuid="8bba2812-1cdc-440c-9ccd-82b05fac2f09">
+        <orm-attributes>
+          <attribute name="column">date_sold</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateAdded" type="datetime" uuid="97b63fa7-bb51-4208-9617-dc4caacca9bf">
+        <orm-attributes>
+          <attribute name="column">date_added</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateTransfered" type="datetime" uuid="036f28a1-788f-4e60-8269-d24c8d771afb">
+        <orm-attributes>
+          <attribute name="column">date_transfered</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateDisplay" type="integer" uuid="bd5fd419-dc85-44bf-983b-9a32cccf4c4a">
+        <orm-attributes>
+          <attribute name="column">date_display</attribute>
+        </orm-attributes>
+      </field>
+      <field name="transferedFrom" type="integer" uuid="931216cf-44e0-4758-ba2b-bce306b4a41c">
+        <orm-attributes>
+          <attribute name="column">transfered_from</attribute>
+        </orm-attributes>
+      </field>
+      <field name="transferedBy" type="string" size="128" uuid="86f28ed7-bf58-4cb6-bbde-322693f84cfc">
+        <orm-attributes>
+          <attribute name="column">transfered_by</attribute>
+        </orm-attributes>
+      </field>
+      <field name="addedBy" type="string" size="128" uuid="8225cb05-8142-4727-8101-304b485d2693">
+        <orm-attributes>
+          <attribute name="column">added_by</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateUpdate" type="datetime" uuid="2c4aece0-8e68-4d5a-a594-e7d0def52939">
+        <orm-attributes>
+          <attribute name="column">date_update</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateUpdated" type="datetime" uuid="bde7cf6e-a522-4d37-8c1c-56c2b74e71ba">
+        <orm-attributes>
+          <attribute name="column">date_updated</attribute>
+        </orm-attributes>
+      </field>
+      <field name="datePreviewFrom" type="datetime" uuid="1f75f9df-cf8b-4e26-9179-b3f4722c97c8">
+        <orm-attributes>
+          <attribute name="column">date_preview_from</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateVisibleFrom" type="datetime" uuid="7c271f54-ffc6-44c5-a94c-b56640e15aa6">
+        <orm-attributes>
+          <attribute name="column">date_visible_from</attribute>
+        </orm-attributes>
+      </field>
+      <field name="updateBy" type="string" size="128" uuid="ebd9cc98-f145-4d41-bd41-37d1bccb264d">
+        <orm-attributes>
+          <attribute name="column">update_by</attribute>
+        </orm-attributes>
+      </field>
+      <field name="isNew" type="integer" uuid="69f2ad88-b69c-4065-9761-7cfc3e3c26e6">
+        <orm-attributes>
+          <attribute name="column">is_new</attribute>
+        </orm-attributes>
+      </field>
+      <field name="isManufacturerApproved" type="integer" uuid="f0ce5bc6-56b0-4448-9cac-b85356d585b9">
+        <orm-attributes>
+          <attribute name="column">is_manufacturer_approved</attribute>
+        </orm-attributes>
+      </field>
+      <field name="certifiedProgramme" type="integer" uuid="f8f4bee4-ad87-4068-9bd3-9afc80aa7309">
+        <orm-attributes>
+          <attribute name="column">certified_programme</attribute>
+        </orm-attributes>
+      </field>
+      <field name="certificationRef" type="string" size="40" uuid="5caf7395-c7c1-4af7-9229-2d4c56c9c6ed">
+        <orm-attributes>
+          <attribute name="column">certification_ref</attribute>
+        </orm-attributes>
+      </field>
+      <field name="smsCode" type="string" size="6" uuid="ecfbe103-5f48-4e84-b4dd-9df0d2763e87">
+        <orm-attributes>
+          <attribute name="column">sms_code</attribute>
+        </orm-attributes>
+      </field>
+      <field name="odometer" type="integer" uuid="5f19f842-a6b7-48f5-9ea2-34d4949198fc"/>
+      <field name="odometerUnit" type="string" size="5" default="Km" uuid="049d5ee7-bf15-4ba4-b0fd-6681ba6f627c">
+        <orm-attributes>
+          <attribute name="column">odometer_unit</attribute>
+        </orm-attributes>
+      </field>
+      <field name="odometerMask" type="integer" uuid="a290c157-afd9-48ce-b8d3-edb82c29e828">
+        <orm-attributes>
+          <attribute name="column">odometer_mask</attribute>
+        </orm-attributes>
+      </field>
+      <field name="drive" type="string" size="1" default="R" uuid="86bd3eec-d838-4aca-847a-c80432b8af27"/>
+      <field name="imageCount" type="integer" size="2" default="0" uuid="268ec5bf-1532-4baf-9961-ebb0605c1b7e">
+        <orm-attributes>
+          <attribute name="column">image_count</attribute>
+        </orm-attributes>
+      </field>
+      <field name="packageId" type="integer" uuid="15a417a1-b681-48e0-a173-db0b720538dc">
+        <orm-attributes>
+          <attribute name="column">package_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="comments" type="text" uuid="5a11d168-38c3-4539-adb1-37fcb0202b65"/>
+      <field name="seoTitle" type="string" size="128" uuid="04f4618c-8325-4afb-bfa7-47288c8618b2">
+        <orm-attributes>
+          <attribute name="column">seo_title</attribute>
+        </orm-attributes>
+      </field>
+      <field name="seoDescription" type="text" uuid="9e7e0588-0c2f-409b-abee-2dbb30327fcf">
+        <orm-attributes>
+          <attribute name="column">seo_description</attribute>
+        </orm-attributes>
+      </field>
+      <field name="seoKeywords" type="text" uuid="d58773ff-dae1-48bf-91d1-fe71b7f59c41">
+        <orm-attributes>
+          <attribute name="column">seo_keywords</attribute>
+        </orm-attributes>
+      </field>
+      <field name="channelId" type="integer" size="4" uuid="1f73375d-4347-435a-adbb-814f53beaefa">
+        <orm-attributes>
+          <attribute name="column">channel_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sopEnabled" type="integer" size="1" default="0" uuid="551d3435-bb3d-457a-a679-9857f65df5aa">
+        <orm-attributes>
+          <attribute name="column">sop_enabled</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sopChannelId" type="integer" size="4" default="0" uuid="e5e47c5f-855b-4b10-ae5f-7fe958141b1f">
+        <orm-attributes>
+          <attribute name="column">sop_channel_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="priceMask" type="integer" size="2" default="0" uuid="6f08a351-a83b-43a4-9f4d-87c68baddced">
+        <orm-attributes>
+          <attribute name="column">price_mask</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dataSource" type="integer" size="2" default="0" uuid="676969ae-a104-47cf-ac6d-6d4015da8965">
+        <orm-attributes>
+          <attribute name="column">data_source</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vinDerivedData" type="integer" size="1" uuid="66a424b4-bc56-4bd1-a9b6-f935c3836636">
+        <orm-attributes>
+          <attribute name="column">vin_derived_data</attribute>
+        </orm-attributes>
+      </field>
+      <field name="featured" type="integer" size="1" uuid="d1dfae44-3952-4760-a181-edae1af8b44b"/>
+      <field name="visibility" type="integer" size="1" default="1" uuid="13b0ed8b-2d1d-48ae-a071-1df26f64352e"/>
+      <field name="adminLocked" type="integer" size="1" default="0" uuid="f1e94c79-bd05-4754-a10a-d42a941b5fa6">
+        <orm-attributes>
+          <attribute name="column">admin_locked</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sysStatus" type="integer" size="1" default="5" uuid="5f02121e-6d36-4153-97cc-751dd6693ff7">
+        <orm-attributes>
+          <attribute name="column">sys_status</attribute>
+        </orm-attributes>
+      </field>
+      <field name="bidHash" type="string" size="100" uuid="cd01dda5-71a5-41cb-bd2a-3059ea38107b">
+        <orm-attributes>
+          <attribute name="column">bid_hash</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fullServiceHistory" type="string" size="100" uuid="9caf55f6-ca23-494d-952f-735083c4d819">
+        <orm-attributes>
+          <attribute name="column">full_service_history</attribute>
+        </orm-attributes>
+      </field>
+      <field name="serviceInterval1Mileage" type="string" size="100" uuid="1fd862e3-2835-4054-984e-d212a7920f82">
+        <orm-attributes>
+          <attribute name="column">service_interval_1_mileage</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateServiceInterval1" type="date" uuid="a1155109-a6fe-4638-9763-eed4e84fab1c">
+        <orm-attributes>
+          <attribute name="column">date_service_interval_1</attribute>
+        </orm-attributes>
+      </field>
+      <field name="serviceInterval2Mileage" type="string" size="100" uuid="b4d3f635-7335-4ade-88bc-5621379653b4">
+        <orm-attributes>
+          <attribute name="column">service_interval_2_mileage</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateServiceInterval2" type="date" uuid="41c71c8b-1a1b-478b-b3e5-052ac46cf276">
+        <orm-attributes>
+          <attribute name="column">date_service_interval_2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="serviceInterval3Mileage" type="string" size="100" uuid="7a63a730-862c-4263-b1a5-b284d51a3d9e">
+        <orm-attributes>
+          <attribute name="column">service_interval_3_mileage</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateServiceInterval3" type="date" uuid="4141fae2-5738-4f84-9816-95d6b07113e2">
+        <orm-attributes>
+          <attribute name="column">date_service_interval_3</attribute>
+        </orm-attributes>
+      </field>
+      <field name="v5Present" type="string" size="1" uuid="1a58319e-e0b5-4a35-b2b7-b3e53e44fe93">
+        <orm-attributes>
+          <attribute name="column">v5_present</attribute>
+        </orm-attributes>
+      </field>
+      <field name="conditionGrade" type="integer" uuid="fc98fae1-a179-4c7a-b6ac-1e72731b4c45">
+        <orm-attributes>
+          <attribute name="column">condition_grade</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vatSource" type="string" size="100" uuid="09ccea3b-f335-4b23-a43b-3c8fecb8ab15">
+        <orm-attributes>
+          <attribute name="column">vat_source</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vatClaimable" type="string" size="1" uuid="0587a533-b161-4461-9e85-2ac9e3ef0f9f">
+        <orm-attributes>
+          <attribute name="column">vat_claimable</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vatPlus" type="integer" uuid="58bd76db-eff6-4c49-9b8b-3649e672f7ed">
+        <orm-attributes>
+          <attribute name="column">vat_plus</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vatContentReclaimable" type="integer" uuid="fa93fcd3-53da-431e-b5bc-d5af5b495f16">
+        <orm-attributes>
+          <attribute name="column">vat_content_reclaimable</attribute>
+        </orm-attributes>
+      </field>
+      <field name="financeCleared" type="string" size="1" uuid="cc63d0c2-13a1-46ac-a347-7d3be4eeb4c2">
+        <orm-attributes>
+          <attribute name="column">finance_cleared</attribute>
+        </orm-attributes>
+      </field>
+      <field name="videos" type="text" uuid="afd28813-3e8b-4d34-abaf-300f5c76fff7"/>
+      <field name="technicalSpecificationDataId" type="integer" size="11" uuid="8843c0ee-4b68-49ff-b78f-14efa3102b59">
+        <orm-attributes>
+          <attribute name="column">technical_specification_data_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="trim_material_id" type="integer" uuid="b091466d-d2b3-4d22-a1cd-70e4fce6bc73"/>
+      <field name="trim_shade_id" type="integer" uuid="1272c323-6e4a-40ff-b52c-8e6a3c194c92"/>
+      <field name="wheelbase_id" type="integer" uuid="43fd3e79-2a32-42cb-aaad-5443259fc872"/>
+      <field name="colour_exterior" type="integer" uuid="95535b49-3a25-45b4-a84b-3f2a80ffde84"/>
+      <field name="vehicle_type" type="integer" uuid="c0c541c5-cb77-48d7-9709-122fb2272748"/>
+      <field name="colour_interior" type="integer" uuid="613ee14c-3ea4-4444-989d-4d7955c7583b"/>
+      <field name="vehicle_status" type="integer" uuid="64f6a853-2165-4782-8a31-fa01707a14c7"/>
+      <index name="fk_manufacturer">
+        <index-field name="make"/>
+      </index>
+      <index name="idx_trim_material_id">
+        <index-field name="trim_material_id"/>
+        <index-field name="trim_shade_id"/>
+      </index>
+      <index name="wheelbase_id">
+        <index-field name="wheelbase_id"/>
+      </index>
+      <index name="idx_vin" unique="true">
+        <index-field name="vin"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">vehicle</attribute>
+        <attribute name="export-file-name">Vehicle.orm.yml</attribute>
+        <attribute name="repository-class">AppBundle\Repository\VehicleRepository</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Manufacturer" owner-alias="" inverse-alias="make" many-owner="true" many-inverse="false" parent-required="true" uuid="9369637b-9772-426c-b918-12605f0e7e94">
+      <association-field from="make" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning">
+          <attribute name="cascade"/>
+          <attribute name="orphan-removal">false</attribute>
+        </attribute>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Transmission" caption="Transmission Vehicle" inverse-alias="transmission" many-owner="true" many-inverse="false" uuid="4a80d1e9-ac04-4584-a75e-ab978dbe2f06">
+      <association-field from="transmission" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Wheelbase" caption="Wheelbase Vehicle" owner-alias="vehicle" inverse-alias="wheelbase" many-owner="true" many-inverse="false" uuid="bfc16b3c-3869-4d61-ac47-d43d9ca4120a">
+      <association-field from="wheelbase_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\TrimShade" caption="TrimShade Vehicle" owner-alias="vehicle" inverse-alias="trimShade" many-owner="true" many-inverse="false" uuid="ca172f19-0976-436e-a72f-596bd5123ceb">
+      <association-field from="trim_shade_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Bodystyle" caption="Bodystyle Vehicle" inverse-alias="bodystyle" many-owner="true" many-inverse="false" uuid="edb0cf17-82ec-4ea8-985d-929051d555f8">
+      <association-field from="bodystyle" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Colour" caption="Colour Exterior Vehicle" inverse-alias="colourExterior" many-owner="true" many-inverse="false" uuid="c6b16d50-dbbe-4a47-b35c-8d0cfbe932de">
+      <association-field from="colour_exterior" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Model" caption="Model Vehicle" inverse-alias="model" many-owner="true" many-inverse="false" parent-required="true" uuid="53e4af24-40f6-4dbc-838e-18f241abbb8f">
+      <association-field from="model" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Engine" caption="Engine Vehicle" inverse-alias="engine" many-owner="true" many-inverse="false" uuid="4065ff23-34a2-4564-878e-fda4490c3c5b">
+      <association-field from="engine" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\TrimMaterial" caption="TrimMaterial Vehicle" owner-alias="vehicle" inverse-alias="trimMaterial" many-owner="true" many-inverse="false" uuid="7c15a0ce-8242-4bf4-828f-fa1e1d3b6b8f">
+      <association-field from="trim_material_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Variant" caption="Variant Vehicle" owner-alias="vehicles" inverse-alias="variant" many-owner="true" many-inverse="false" uuid="707115f5-5384-4da1-8846-4229bb811646">
+      <association-field from="variant" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\VehicleType" caption="VehicleType Vehicle" owner-alias="vehicles" inverse-alias="vehicleType" many-owner="true" many-inverse="false" uuid="a89c98ed-b640-4e45-8114-49821ca0c0ce">
+      <association-field from="vehicle_type" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\Trim" caption="Trim Vehicle" inverse-alias="trim" many-owner="true" many-inverse="false" uuid="78822c0d-bd11-4d62-b37a-087e8844660f">
+      <association-field from="colour_interior" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Vehicle" to="\AppBundle\Entity\VehicleStatus" caption="VehicleStatus Vehicle" inverse-alias="vehicleStatus" many-owner="true" many-inverse="false" uuid="92411e4f-41be-412e-b4ba-ba5ac1a8c9de">
+      <association-field from="vehicle_status" to="id"/>
+    </association>
+    <entity name="\AppBundle\Entity\VehicleEquipment" local-name="VehicleEquipment" namespace="\AppBundle\Entity" uuid="c2bf2f25-8ce3-41ac-abe5-6bc13bef9932">
+      <field name="id" type="integer" size="11" required="true" primary="true" auto-increment="true" uuid="e179a0c3-ff18-421a-9d96-d759e255867c">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="equipment" type="integer" size="11" uuid="81adde42-6d0b-4be4-a5e0-d5d615a3e449"/>
+      <field name="std" type="integer" size="1" required="true" uuid="37fb84fa-3bcb-44ef-a5a4-7b2320de8bd1"/>
+      <field name="highlightedFeature" type="integer" size="1" required="true" uuid="f065a1f3-0e4d-496f-8943-0cfb21804517">
+        <orm-attributes>
+          <attribute name="column">highlighted_feature</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehicle" type="integer" size="11" unsigned="true" uuid="5aa4651e-5420-40eb-8ee7-ed6617045901"/>
+      <index name="idx_vehicle_equipment" unique="true">
+        <index-field name="vehicle"/>
+        <index-field name="equipment"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">vehicle_equipment</attribute>
+        <attribute name="export-file-name">VehicleEquipment.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\VehicleEquipment" to="\AppBundle\Entity\Vehicle" owner-alias="equipment" inverse-alias="vehicle" many-owner="true" many-inverse="false" uuid="99d5a4ae-e0aa-4dc6-b9b5-f15e24f7b40f">
+      <association-field from="vehicle" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning">
+          <attribute name="cascade"/>
+          <attribute name="orphan-removal">false</attribute>
+        </attribute>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\VehicleEquipment" to="\AppBundle\Entity\Equipment" owner-alias="vehicleEquipment" inverse-alias="equipment" many-owner="true" many-inverse="false" uuid="134c7500-5f4f-4cc6-bd94-87eb8449d7e8">
+      <association-field from="equipment" to="id"/>
+    </association>
+    <entity name="\AppBundle\Entity\Wheelbase" local-name="Wheelbase" namespace="\AppBundle\Entity" uuid="01f464ec-5aed-48a0-b48c-debefe41c020">
+      <field name="id" type="integer" required="true" primary="true" uuid="d9fb6083-587f-4759-a10e-791d9fdde57f">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" size="255" required="true" uuid="8fe707d4-1b63-468f-a279-56fcce500987"/>
+      <field name="manufacturerId" type="integer" required="true" uuid="ed3b715d-6c9a-45c3-8659-2f04183343f0">
+        <orm-attributes>
+          <attribute name="column">manufacturer_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="manufacturerCode" type="string" size="20" required="true" uuid="a0159fd6-c9a6-439f-a6f2-ce766fba6110">
+        <orm-attributes>
+          <attribute name="column">manufacturer_code</attribute>
+        </orm-attributes>
+      </field>
+      <field name="listOrder" type="integer" required="true" uuid="4d48966c-1f86-4769-ad3b-c8a6417c7654">
+        <orm-attributes>
+          <attribute name="column">list_order</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateAdded" type="datetime" required="true" uuid="727231c1-44d8-4b48-9032-1703333a7b20">
+        <orm-attributes>
+          <attribute name="column">date_added</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dateUpdated" type="datetime" required="true" uuid="f667ee91-6ad7-451e-8580-b5d08f917a45">
+        <orm-attributes>
+          <attribute name="column">date_updated</attribute>
+        </orm-attributes>
+      </field>
+      <field name="addedBy" type="integer" required="true" uuid="ffdb23ea-19e3-4dbb-8ce7-4bbe0f357d6a">
+        <orm-attributes>
+          <attribute name="column">added_by</attribute>
+        </orm-attributes>
+      </field>
+      <field name="updateBy" type="integer" required="true" uuid="90bb2118-ebdb-425a-a0a5-33b35bf4d748">
+        <orm-attributes>
+          <attribute name="column">update_by</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dataSource" type="integer" required="true" uuid="c6db82ce-7440-4766-bc8c-b807443853b6">
+        <orm-attributes>
+          <attribute name="column">data_source</attribute>
+        </orm-attributes>
+      </field>
+      <field name="verified" type="integer" required="true" uuid="bc553aed-256c-4efe-8788-e30976759a98"/>
+      <field name="sysStatus" type="integer" required="true" uuid="bc0d0f5f-a9b0-426b-b15d-c12dd6d0a054">
+        <orm-attributes>
+          <attribute name="column">sys_status</attribute>
+        </orm-attributes>
+      </field>
+      <index name="name_manufacturer_id" unique="true">
+        <index-field name="name"/>
+        <index-field name="manufacturerId"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">wheelbase</attribute>
+        <attribute name="export-file-name">Wheelbase.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\VariantModel" local-name="VariantModel" namespace="\AppBundle\Entity" uuid="011ecb39-4df6-4328-af83-08bbcf00c31f">
+      <field name="model_id" type="integer" required="true" primary="true" uuid="c557bec8-396d-4dd0-bbc3-ff63f07c4797"/>
+      <field name="variant_id" type="integer" required="true" primary="true" uuid="cbf5da58-25c0-4642-a30e-f08837150238"/>
+      <orm-attributes>
+        <attribute name="table">variant_model</attribute>
+      </orm-attributes>
+    </entity>
+    <many-to-many mn-entity="\AppBundle\Entity\VariantModel" caption="Model to Variant" uuid="3c4426f4-74e4-433f-9ae6-4aeb32b406f4">
+      <many-to-many-entity name="\AppBundle\Entity\Variant" owning-side="true" alias="variants" uuid="bc4ab8a9-f73b-4a09-95fd-3a6b78082a74">
+        <many-to-many-field from="variant_id" to="id"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\AppBundle\Entity\Model" owning-side="false" alias="models" uuid="e2af30de-b7ea-4846-975e-b20bb6c65c39">
+        <many-to-many-field from="model_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="\AppBundle\Entity\VehicleStatus" local-name="VehicleStatus" namespace="\AppBundle\Entity" uuid="68e20c54-05ec-42f2-b9fc-07ff4adf6894">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="e0741dfc-6e6c-4e51-8d59-448167abe399"/>
+      <field name="name" type="string" size="50" uuid="17ec4af7-d9fa-418d-851b-479f29bdcff9"/>
+      <field name="colourHtml" type="string" size="10" uuid="c63d1d11-1829-4890-a727-e1bddfdb1028">
+        <orm-attributes>
+          <attribute name="column">colour_html</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="table">vehicle_status</attribute>
+        <attribute name="export-file-name">VehicleStatus.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <region namespace="\AppBundle\Entity" caption="BodyStyle" uuid="7f46e322-e453-480c-9c1f-ca19b5d9dd82">
+      <entity name="\AppBundle\Entity\Bodystyle" local-name="Bodystyle" namespace="\AppBundle\Entity" uuid="ce607811-5238-47de-ad13-c23eceadcc05">
+        <field name="id" type="integer" size="11" required="true" primary="true" uuid="de3a8f84-00df-4f41-ab4b-3dc42d3a7b8a">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameUtf8" type="string" size="128" required="true" uuid="71384cd1-261d-4db5-bac4-f93f6f27b620">
+          <orm-attributes>
+            <attribute name="column">name_utf8</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturer_id" type="integer" uuid="9808736b-005e-480f-b146-46def15b19ee"/>
+        <field name="manufacturerCode" type="string" size="20" uuid="3fc87f37-3ef5-442e-b1c8-a0ae3e01062a">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="vehicleType" type="integer" size="11" required="true" uuid="5affbb2f-4d88-47f8-be2c-f0318d36273d">
+          <orm-attributes>
+            <attribute name="column">vehicle_type</attribute>
+          </orm-attributes>
+        </field>
+        <field name="bodystyle_meta" type="integer" size="11" uuid="33546d97-cd6b-43e9-a2b7-f7c96de86013"/>
+        <field name="listOrder" type="integer" size="11" required="true" uuid="4449b7de-58f4-4755-85c7-01d7a83d9de2">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="a4051ce8-42f3-455f-94da-6dbbe79a9ea4">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="bd3baa71-dad5-4679-9123-0dc4ac713bb6">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" size="11" required="true" uuid="dfee989f-d99e-4dfa-9c5a-a498d620a265">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" size="11" required="true" uuid="bef10f30-472a-44fe-9458-5a83cd351f1b">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" size="11" required="true" uuid="e15e3483-f229-47c2-a91a-84cd2ce84d26">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" size="11" required="true" uuid="eb36bd88-a35d-4c7d-9b9c-e37872d46e72"/>
+        <field name="sysStatus" type="integer" size="11" required="true" uuid="8edc6573-ea60-4982-a554-7b0c9a2f2451">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <index name="idx_bodystyle_meta">
+          <index-field name="bodystyle_meta"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">bodystyle</attribute>
+          <attribute name="export-file-name">Bodystyle.orm.yml</attribute>
+          <attribute name="repository-class">AppBundle\Repository\BodystyleRepository</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\BodystyleManufacturerCode" local-name="BodystyleManufacturerCode" namespace="\AppBundle\Entity" uuid="4596c496-c097-40ed-8380-e5fd37cdbf95">
+        <field name="id" type="integer" required="true" primary="true" uuid="368fe5fd-2543-4044-ba38-7d8233b93d2f">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" required="true" uuid="645609df-78fd-41e7-bc89-10d8a615228e">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="bodystyle_id" type="integer" uuid="237f1566-78ce-47df-8a67-900c4a0dc64a"/>
+        <index name="bodystyle_manufacturer_code">
+          <index-field name="manufacturerCode"/>
+          <index-field name="bodystyle_id"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">bodystyle_manufacturer_code</attribute>
+          <attribute name="export-file-name">BodystyleManufacturerCode.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\BodystyleMetadata" local-name="BodystyleMetadata" namespace="\AppBundle\Entity" uuid="448cf6e8-3dfe-4a09-b053-d448f3c82561">
+        <field name="id" type="integer" required="true" primary="true" uuid="c568c84b-d203-4fb3-907a-05b3f0f0bd0f">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="meta" type="string" size="32" required="true" uuid="9fff3815-400f-4125-9519-24f8e3eba80e"/>
+        <field name="description" type="string" size="40" uuid="c6bcc637-2d12-4d61-9884-fd6e019a7535"/>
+        <field name="vehicleType" type="integer" required="true" uuid="44ab3735-18b2-4fb0-a980-f90253f1cd4c">
+          <orm-attributes>
+            <attribute name="column">vehicle_type</attribute>
+          </orm-attributes>
+        </field>
+        <field name="sysStatus" type="integer" required="true" uuid="df702cc1-7066-4dc1-8349-fcaf3026ab75">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <index name="idx_bodystyle_type">
+          <index-field name="id"/>
+          <index-field name="meta"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">bodystyle_metadata</attribute>
+          <attribute name="export-file-name">BodystyleMetadata.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\Bodystyle" to="\AppBundle\Entity\BodystyleMetadata" inverse-alias="bodystyleMeta" many-owner="true" many-inverse="false" uuid="21144959-98e5-47c2-9a0e-3b9f486ff350">
+      <association-field from="bodystyle_meta" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning">
+          <attribute name="cascade"/>
+          <attribute name="orphan-removal">false</attribute>
+        </attribute>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Bodystyle" to="\AppBundle\Entity\Manufacturer" caption="Manufacturer Bodystyle" owner-alias="bodystyles" inverse-alias="manufacturer" many-owner="true" many-inverse="false" uuid="434eeb2d-fac8-4ef6-ad17-2cae49058334">
+      <association-field from="manufacturer_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\BodystyleManufacturerCode" to="\AppBundle\Entity\Bodystyle" caption="Bodystyle BodystyleManufacturerCode" owner-alias="bodystyleManufacturerCode" inverse-alias="bodystyle" many-owner="true" many-inverse="false" uuid="35913975-7ce0-46d7-a98c-c9c3cff03fb1">
+      <association-field from="bodystyle_id" to="id"/>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Colour" uuid="16aa33c7-1e74-4876-ad54-b1728ecc13b5">
+      <entity name="\AppBundle\Entity\Colour" local-name="Colour" namespace="\AppBundle\Entity" uuid="be72b4c6-a59b-4fca-9eb0-619ab6ee4b31">
+        <field name="id" type="integer" required="true" primary="true" uuid="38352a2a-8f4a-48d8-b73a-4434404a2261">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="128" required="true" uuid="3585fdd1-6a8f-4ba8-8dde-57ca55caf659"/>
+        <field name="manufacturerId" type="integer" required="true" uuid="b2ec11c3-8587-49f8-b75d-0e19f1a485a0">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" uuid="7ed192fa-cd02-43d6-93c2-e589bab1b7b9">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listOrder" type="integer" required="true" uuid="b5bf12d0-11ca-4f20-be7b-191d2ff1b034">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="5b553136-bcf1-4601-8572-cc9459371acd">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="21c00b7b-a436-4876-96a1-68b5418a73a3">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" required="true" uuid="7bf32e2f-9427-453d-90d2-6ed751c8a8b7">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" required="true" uuid="802415dd-b1c8-4c87-bab8-43254f2e2ffb">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" required="true" uuid="47afe88d-0ba1-440b-a701-ea42fa17402a">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" required="true" uuid="0d23ace9-f5ec-4a0a-bc92-4f3a4bd01a56"/>
+        <field name="sysStatus" type="integer" required="true" uuid="41635d02-d96c-4b23-9b40-a06466807f6e">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="colour_meta" type="integer" uuid="ae4abba6-1a57-4822-a85b-c9bf74c712fb"/>
+        <index name="idx_colour" unique="true">
+          <index-field name="name"/>
+          <index-field name="manufacturerId"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">colour</attribute>
+          <attribute name="export-file-name">Colour.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\ColourManufacturerCode" local-name="ColourManufacturerCode" namespace="\AppBundle\Entity" uuid="c89af5fc-b27d-40e8-b294-4ebe50416c9a">
+        <field name="id" type="integer" size="11" required="true" primary="true" uuid="25a1637e-a107-450e-92ce-610af723a0d9">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" required="true" uuid="0b259850-c983-4faa-8310-4c54d68d9dbd">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="colour_id" type="integer" size="11" uuid="738d3e1b-f089-455b-9fb1-92a1f0a07a1c"/>
+        <index name="colour_id" unique="true">
+          <index-field name="colour_id"/>
+          <index-field name="manufacturerCode"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">colour_manufacturer_code</attribute>
+          <attribute name="export-file-name">ColourManufacturerCode.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\ColourMetadata" local-name="ColourMetadata" namespace="\AppBundle\Entity" uuid="9edf3bb9-4fe5-42a0-b911-6f7f49bed0c8">
+        <field name="id" type="integer" required="true" primary="true" uuid="e90ce681-2091-4e7b-bf92-863bed546bde">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="meta" type="string" size="20" required="true" uuid="1bc8cb16-2034-4326-8044-bd677cb9c610"/>
+        <field name="description" type="string" size="16" required="true" uuid="7c4a59e6-6e99-4c56-9dbe-a567dff8ac20"/>
+        <field name="sysStatus" type="integer" required="true" uuid="46e7036a-9903-431d-8e3d-98ceefad4ebb">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <index name="idx_colour_meta">
+          <index-field name="id"/>
+          <index-field name="meta"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">colour_metadata</attribute>
+          <attribute name="export-file-name">ColourMetadata.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\Colour" to="\AppBundle\Entity\ColourMetadata" caption="ColourMetadata Colour" owner-alias="colour" inverse-alias="colourMetadata" many-owner="true" many-inverse="false" uuid="51d880ab-9520-481f-9b11-90f94fde76ae">
+      <association-field from="colour_meta" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\ColourManufacturerCode" to="\AppBundle\Entity\Colour" owner-alias="colourManufacturerCode" inverse-alias="colour" many-owner="true" many-inverse="false" uuid="cb5e208a-4d18-438a-933f-b9c5b8b9d9ba">
+      <association-field from="colour_id" to="id"/>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Engine" uuid="75342cbe-64b1-48c5-892d-c1db2ce039ce">
+      <entity name="\AppBundle\Entity\Engine" local-name="Engine" namespace="\AppBundle\Entity" uuid="e87c4488-804a-49c6-86ef-b231b505d657">
+        <field name="id" type="integer" required="true" primary="true" uuid="862759ea-d078-4fe1-aefc-1888961caa1b">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="80" required="true" uuid="45c42b69-cd47-4de3-9626-43ce3099cd3a"/>
+        <field name="vehicleType" type="integer" required="true" uuid="d62168b6-e3ac-41d3-9f3a-e9d5e83de29a">
+          <orm-attributes>
+            <attribute name="column">vehicle_type</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" uuid="84049c6c-a7d0-44ed-8872-1512b27d1fac">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="engineCapacity" type="decimal" required="true" uuid="e8898d52-d3b1-4919-bf12-0125f27d94ac">
+          <orm-attributes>
+            <attribute name="precision">6</attribute>
+            <attribute name="scale">2</attribute>
+            <attribute name="column">engine_capacity</attribute>
+          </orm-attributes>
+        </field>
+        <field name="cylinders" type="integer" required="true" uuid="a0c3a610-3206-48aa-8755-55c3050809b4"/>
+        <field name="valves" type="integer" uuid="0728837c-0094-4438-8588-6496ed406c30"/>
+        <field name="bhp" type="decimal" required="true" uuid="227414d0-c6b3-46ae-be5b-0db446c81d91">
+          <orm-attributes>
+            <attribute name="precision">11</attribute>
+            <attribute name="scale">2</attribute>
+          </orm-attributes>
+        </field>
+        <field name="turbo" type="integer" required="true" uuid="4b43a03f-6a69-4db4-867e-c7814e9fd475"/>
+        <field name="supercharger" type="integer" required="true" uuid="640c7fd9-8705-40ac-916c-278ccc4e1391"/>
+        <field name="engineMeta" type="integer" uuid="f4100abc-92b7-47d9-b850-d903532b4367">
+          <orm-attributes>
+            <attribute name="column">engine_meta</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listOrder" type="integer" required="true" uuid="90d11406-41ae-44ed-a52e-290a5990e4ad">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="04dd68ee-b44a-4002-b338-bd8ea559ed56">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="c477f5fc-8707-4811-8f82-9b59c1c171be">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" required="true" uuid="5ccfb698-7ccb-47c8-b5a4-748fa8ee8a59">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" required="true" uuid="c4d89b81-1b8a-4529-941b-e9696e563ca1">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" required="true" uuid="7ae3108a-4559-4fda-b139-4fa80b80d5f4">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" required="true" uuid="0513fe06-a4e7-4e5e-9c4a-1be15307983b"/>
+        <field name="sysStatus" type="integer" required="true" uuid="9f535042-743c-4112-90ce-396fcdfaef25">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="engine_fuel" type="integer" uuid="661c33ab-8e3b-44fb-948e-9f1e9b64ad51"/>
+        <field name="manufacturer_id" type="integer" uuid="7da85d46-dae5-44b6-adc7-45f280206ae7"/>
+        <index name="idx_engine">
+          <index-field name="name"/>
+          <index-field name="engine_fuel"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">engine</attribute>
+          <attribute name="export-file-name">Engine.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\EngineFuel" local-name="EngineFuel" namespace="\AppBundle\Entity" uuid="5d3e943c-d069-4a1a-bfcb-457015f5fccd">
+        <field name="id" type="integer" required="true" primary="true" uuid="6d27bc5b-87ff-40f6-a2f9-75f747a6c77a">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="vehicleType" type="integer" required="true" uuid="c23908d0-3f39-481f-908d-cfd68c3b5388">
+          <orm-attributes>
+            <attribute name="column">vehicle_type</attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameUtf8" type="string" size="128" required="true" uuid="da8237b2-2f5e-4602-aa05-ff27d80392a0">
+          <orm-attributes>
+            <attribute name="column">name_utf8</attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameAscii" type="string" size="128" required="true" uuid="c8ed9323-f6ab-4e68-a332-75f6dcd055d9">
+          <orm-attributes>
+            <attribute name="column">name_ascii</attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameHtml" type="string" size="128" required="true" uuid="37becf0e-2992-48f6-a4a8-cbbbb9be4666">
+          <orm-attributes>
+            <attribute name="column">name_html</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listorder" type="integer" required="true" uuid="d48db418-4fc8-4dd6-9036-d047ca203f15"/>
+        <field name="sysStatus" type="integer" required="true" uuid="c454e1db-da62-4753-ad49-a468ec14fbc1">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="fuel_meta" type="integer" uuid="e0b0c385-1109-4a18-9a31-c99a76c5bc4a"/>
+        <orm-attributes>
+          <attribute name="table">engine_fuel</attribute>
+          <attribute name="export-file-name">EngineFuel.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\EngineFuelMetadata" local-name="EngineFuelMetadata" namespace="\AppBundle\Entity" uuid="348e4665-35fe-4528-8bac-f32de7c3049e">
+        <field name="id" type="integer" required="true" primary="true" uuid="8b31700f-c056-4352-97f2-fefbb4685267">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="meta" type="string" size="32" required="true" uuid="76bddee7-edb2-462b-a722-5afff26e2fab"/>
+        <field name="description" type="string" size="255" uuid="15d1914e-fbb3-4e0c-be49-c73a1798826d"/>
+        <field name="sysStatus" type="integer" required="true" uuid="f765feca-8673-41a3-b9da-c41a75c968c5">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <index name="idx_fuel_meta">
+          <index-field name="id"/>
+          <index-field name="meta"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">engine_fuel_metadata</attribute>
+          <attribute name="export-file-name">EngineFuelMetadata.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\EngineManufacturerCode" local-name="EngineManufacturerCode" namespace="\AppBundle\Entity" uuid="9ccf7fe8-fffb-4ac7-8423-62d2e06c76e4">
+        <field name="id" type="integer" required="true" primary="true" uuid="621666a7-3f8e-448a-8e02-3a4dc7a38c8b">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" required="true" uuid="10c52697-6e09-4b2c-adbe-30565d14777f">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="engine_id" type="integer" uuid="09a36d45-1bce-46e2-b70d-8e415967b941"/>
+        <index name="engine_id" unique="true">
+          <index-field name="engine_id"/>
+          <index-field name="manufacturerCode"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">engine_manufacturer_code</attribute>
+          <attribute name="export-file-name">EngineManufacturerCode.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\Engine" to="\AppBundle\Entity\EngineFuel" caption="EngineFuel Engine" inverse-alias="engineFuel" many-owner="true" many-inverse="false" uuid="12bd34f3-3bbe-4ed6-977d-f80f27085643">
+      <association-field from="engine_fuel" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Engine" to="\AppBundle\Entity\Manufacturer" caption="Manufacturer Engine" owner-alias="engines" inverse-alias="manufacturer" many-owner="true" many-inverse="false" uuid="c56d91b1-b242-4c9f-a976-032ec4064984">
+      <association-field from="manufacturer_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\EngineFuel" to="\AppBundle\Entity\EngineFuelMetadata" caption="EngineFuelMetadata EngineFuel" inverse-alias="engineFuelMetadata" many-owner="true" many-inverse="false" uuid="36eedf11-e149-4c1c-a1cb-bde7b253decb">
+      <association-field from="fuel_meta" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\EngineManufacturerCode" to="\AppBundle\Entity\Engine" caption="Engine EngineManufacturerCode" owner-alias="engineManufacturerCode" inverse-alias="engine" many-owner="true" many-inverse="false" uuid="d7bd22b0-88dc-4c8c-94d0-aab2e66915e8">
+      <association-field from="engine_id" to="id"/>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Equipment" uuid="2a716863-cf55-4090-ab41-64b64b37390c">
+      <entity name="\AppBundle\Entity\Equipment" local-name="Equipment" namespace="\AppBundle\Entity" uuid="8545fbc0-187a-4869-a610-04db786c3423">
+        <field name="id" type="integer" size="11" required="true" primary="true" uuid="ddfabecb-73be-4a0c-9de6-c966ed6481bf">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameUtf8" type="string" size="128" required="true" uuid="32668b4e-a15d-42b1-9958-ef8ee4792ee8">
+          <orm-attributes>
+            <attribute name="column">name_utf8</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerId" type="integer" size="11" required="true" uuid="58b018c7-0347-4f8c-ba88-0343176af2b0">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" uuid="db8d0438-cdb6-4a1b-b2cc-55ba397d3c83">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="vehicleType" type="integer" size="1" required="true" uuid="5dd481a1-9fca-42ca-899c-12306d9c936c">
+          <orm-attributes>
+            <attribute name="column">vehicle_type</attribute>
+          </orm-attributes>
+        </field>
+        <field name="categoryId" type="integer" size="11" uuid="0163fcbe-6e94-4079-8065-4000d9738c4e">
+          <orm-attributes>
+            <attribute name="column">category_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="equipmentMeta" type="integer" size="11" required="true" uuid="266b5242-7163-453e-b812-69927efce746">
+          <orm-attributes>
+            <attribute name="column">equipment_meta</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listOrder" type="integer" size="4" required="true" uuid="f62548c5-5f51-4a62-a14a-db54d472ca8b">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="6f6b7337-dc31-472b-8378-48ea1ccb6248">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="0457f9a9-782d-4b94-afb1-a239bb626b83">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" size="11" required="true" uuid="c1758356-299a-4c95-8539-da34470beb73">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" size="11" required="true" uuid="6ef31d9e-6ecc-4b35-a282-310a5a8eac35">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" required="true" uuid="0a86a06c-73c5-4adf-9efb-fa6417d1f637">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" size="1" required="true" uuid="18319625-8350-448a-9d6f-baf8e9f19664"/>
+        <field name="sysStatus" type="integer" size="1" required="true" uuid="0994c458-0fb8-4a61-8f69-b74ccf9ca994">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="equipment_group" type="integer" uuid="4a990ea2-5102-48fd-a289-be61f4582fd0"/>
+        <field name="equipment_type" type="integer" uuid="530ce363-34ad-4029-88c5-89224ca55cb7"/>
+        <index name="equipment_idx">
+          <index-field name="id"/>
+        </index>
+        <index name="manufacturer_id_manufacturer_code" unique="true">
+          <index-field name="manufacturerId"/>
+          <index-field name="manufacturerCode"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">equipment</attribute>
+          <attribute name="export-file-name">Equipment.orm.yml</attribute>
+          <attribute name="repository-class">AppBundle\Repository\EquipmentRepository</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\EquipmentGroup" local-name="EquipmentGroup" namespace="\AppBundle\Entity" uuid="7ad84c5c-4bb3-4fc9-a4f0-522e96586330">
+        <field name="id" type="integer" size="11" required="true" primary="true" uuid="e8bfedb5-f7a0-4b74-99f8-9b48d1960ab5">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="80" uuid="92f39d5f-c1e6-474d-a1c8-0db60951f25b"/>
+        <field name="manufacturerId" type="integer" size="11" required="true" uuid="2da7e40f-0b8f-45cb-ae35-2c0e8c82b165">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="equipmentGroupMeta" type="integer" size="11" required="true" uuid="8ba4a708-2462-4b0e-969e-4e3398f7c338">
+          <orm-attributes>
+            <attribute name="column">equipment_group_meta</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listOrder" type="integer" size="4" required="true" uuid="310dd4d6-4f29-4ca3-bbf9-8550ff25326a">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="0d7603be-7f12-423c-b1c6-2a8366227cb1">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="2df90291-7062-4be9-8f34-2d1ea190dd71">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" size="11" required="true" uuid="7f733f8b-f3d5-46fe-a681-ac84319b3042">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" size="11" required="true" uuid="8ab750ec-e8eb-4cf0-80bd-4b4b619c42ff">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" size="11" required="true" uuid="d6148781-8362-406b-814b-e94cec25ca89">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" size="1" required="true" uuid="e5c5d479-cc08-4d17-b165-49bc62caf8e2"/>
+        <field name="sysStatus" type="integer" size="1" required="true" uuid="8e2c3aeb-2db2-4d51-8305-a198ad77d202">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <index name="idx_equipment_group" unique="true">
+          <index-field name="name"/>
+          <index-field name="manufacturerId"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">equipment_group</attribute>
+          <attribute name="export-file-name">EquipmentGroup.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\EquipmentGroupAlias" local-name="EquipmentGroupAlias" namespace="\AppBundle\Entity" uuid="5a4c3ab2-76fa-4122-9b60-0fd11c57bbe6">
+        <field name="id" type="integer" required="true" primary="true" uuid="7a0a8a1b-6ab1-4257-8e2d-2fe9f6f24e8f">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerId" type="integer" required="true" uuid="2dac98dc-91e3-4692-a29a-ba8eb801698c">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="255" uuid="5379488a-6286-4ae2-bfb0-0f3af4fecbdc"/>
+        <field name="alias" type="string" size="255" uuid="c69775f5-8ac1-4aed-a71c-8c1e40a5dd7e"/>
+        <field name="dateAdded" type="datetime" uuid="717c5e7f-81e0-4e58-98a5-d5bda767ed0d">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="4d523623-aae4-4a35-9854-37cd2307c848">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <index name="manufacturer_id_name" unique="true">
+          <index-field name="name"/>
+          <index-field name="manufacturerId"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">equipment_group_alias</attribute>
+          <attribute name="export-file-name">EquipmentGroupAlias.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\EquipmentType" local-name="EquipmentType" namespace="\AppBundle\Entity" uuid="7ded8eea-132b-489b-96ea-7558f8d9a805">
+        <field name="id" type="integer" size="11" required="true" primary="true" uuid="878daaea-6724-472d-aa06-3673627ee569">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="80" uuid="8675b548-a3aa-4df3-91b8-016dc7557761"/>
+        <field name="manufacturerId" type="integer" size="11" required="true" uuid="a58123b6-b445-491b-95c9-ab566d323396">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="equipmentTypeMeta" type="integer" size="11" uuid="251b6299-017e-4d31-bd96-dc0e35dd529f">
+          <orm-attributes>
+            <attribute name="column">equipment_type_meta</attribute>
+          </orm-attributes>
+        </field>
+        <orm-attributes>
+          <attribute name="table">equipment_type</attribute>
+          <attribute name="export-file-name">EquipmentType.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\MusthaveEquipmentType" local-name="MusthaveEquipmentType" namespace="\AppBundle\Entity" uuid="ac6480f6-3f17-407b-a98f-553c9b2d188b">
+        <field name="id" type="integer" size="11" required="true" primary="true" uuid="f3e1c953-2fb3-4afe-bdc7-6ead433ad29e">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="255" uuid="1822da07-2df6-4148-b5fb-40c5ca24506f"/>
+        <field name="equipment_type_id" type="integer" size="11" uuid="529320e9-254d-4b9d-bbe8-2335e6bca140"/>
+        <orm-attributes>
+          <attribute name="table">musthave_equipment_type</attribute>
+          <attribute name="export-file-name">MusthaveEquipmentType.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\Equipment" to="\AppBundle\Entity\EquipmentGroup" owner-alias="equipment" inverse-alias="equipmentGroup" many-owner="true" many-inverse="false" uuid="57066e7e-83bf-48de-98d0-fbb887f0270c">
+      <association-field from="equipment_group" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Equipment" to="\AppBundle\Entity\EquipmentType" caption="EquipmentType Equipment" owner-alias="equipment" inverse-alias="equipmentType" many-owner="true" many-inverse="false" uuid="d5b09e39-3c04-4e47-909b-b9d6e5c05632">
+      <association-field from="equipment_type" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\MusthaveEquipmentType" to="\AppBundle\Entity\EquipmentType" caption="EquipmentType MusthaveEquipmentType" owner-alias="musthaveEquipmentTypes" inverse-alias="equipmentType" many-owner="true" many-inverse="false" uuid="c52bdbfd-6766-4f65-8ede-cb8b0da70838">
+      <association-field from="equipment_type_id" to="id"/>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Model" uuid="9ef5d96e-ae1c-4d47-bb82-015e007477ac">
+      <entity name="\AppBundle\Entity\Model" local-name="Model" namespace="\AppBundle\Entity" uuid="9f255f91-038e-46b8-acf4-f0f63f86ed61">
+        <field name="id" type="integer" required="true" primary="true" uuid="a6e32725-2e2b-4033-9ae8-71cb3e73f5a9">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="modelCode" type="string" size="20" required="true" uuid="0f9088f5-4b2f-4a9d-8efa-064376b64642">
+          <orm-attributes>
+            <attribute name="column">model_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="modelGroup" type="integer" uuid="c8443c12-ec0b-41e3-b8c2-274a895c5d15">
+          <orm-attributes>
+            <attribute name="column">model_group</attribute>
+          </orm-attributes>
+        </field>
+        <field name="vehicleType" type="integer" required="true" uuid="f43f31d9-bc6f-4f51-987a-2e294f863d4c">
+          <orm-attributes>
+            <attribute name="column">vehicle_type</attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameUtf8" type="string" size="80" required="true" uuid="7b72ec00-c76c-4efd-819f-65382f22ec15">
+          <orm-attributes>
+            <attribute name="column">name_utf8</attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameAscii" type="string" size="128" uuid="4c8cafa8-4fee-466f-804e-d982ef7289e2">
+          <orm-attributes>
+            <attribute name="column">name_ascii</attribute>
+          </orm-attributes>
+        </field>
+        <field name="modelNameFormatId" type="integer" required="true" uuid="bdcb5936-064b-4dcb-b31f-9f27671713c0">
+          <orm-attributes>
+            <attribute name="column">model_name_format_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="vehicleDescriptionFormatId" type="integer" required="true" uuid="19df606c-9450-485d-b323-45dcabc14d60">
+          <orm-attributes>
+            <attribute name="column">vehicle_description_format_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listOrder" type="integer" required="true" uuid="15bb83fd-f9ed-46b9-bac7-5018e0ff4822">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="series" type="integer" uuid="9f2b8379-b2a9-4258-8912-3eb226f6ed6d"/>
+        <field name="validTo" type="date" uuid="11ba3690-c52d-4fd9-b9a7-accbe0e02305">
+          <orm-attributes>
+            <attribute name="column">valid_to</attribute>
+          </orm-attributes>
+        </field>
+        <field name="validFrom" type="date" uuid="8f0ffa47-1eca-4265-a897-11172e7004d1">
+          <orm-attributes>
+            <attribute name="column">valid_from</attribute>
+          </orm-attributes>
+        </field>
+        <field name="hideManufacturer" type="integer" required="true" uuid="707d3435-8b62-44fa-a753-66905d16b396">
+          <orm-attributes>
+            <attribute name="column">hide_manufacturer</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="bf64653c-5476-48a2-a040-c02baa6e9f72">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="1b076e5f-8a21-4f44-be57-d7ec24a86613">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" required="true" uuid="d8096be2-9dd0-4b56-8bc1-f9e2e3069971">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" required="true" uuid="1da0f17a-8b43-4bb6-b414-4a26643cc589">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" required="true" uuid="10336303-7a60-4a78-9edc-2c16d78f4caa">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" required="true" uuid="feeb8751-affb-4c7a-8bfe-7e713a39eab0"/>
+        <field name="sysStatus" type="integer" required="true" uuid="8ecd8078-ed49-4069-9baf-6a24fc5664e5">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturer_id" type="integer" uuid="a8e1fb6d-8487-42b0-9ec0-1a1d7ff47b79"/>
+        <index name="idx_series">
+          <index-field name="series"/>
+        </index>
+        <index name="model_ibfk1">
+          <index-field name="manufacturer_id"/>
+        </index>
+        <index name="model_idx">
+          <index-field name="id"/>
+          <index-field name="series"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">model</attribute>
+          <attribute name="export-file-name">Model.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\ModelEngine" local-name="ModelEngine" namespace="\AppBundle\Entity" uuid="f937b6ad-edd2-4d3d-99e2-1e4cfcca6b33">
+        <field name="id" type="integer" required="true" primary="true" uuid="93b78231-3c72-4101-b09a-565a709d2d27">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="model" type="integer" uuid="358edd31-1512-48fa-8526-a0830a85d924"/>
+        <field name="engine" type="integer" required="true" uuid="78d0e60d-571b-44b7-bf35-25b7b0b8b977"/>
+        <field name="manufacturerId" type="integer" uuid="c2ee4dfe-9dbf-4aba-b5cb-6b7a00017b2e">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="country" type="integer" uuid="e98b8213-315c-4324-9d37-30e6c787ae85"/>
+        <field name="sysStatus" type="integer" required="true" uuid="4d6b8bc3-b011-4aee-9213-63b631eab0fb">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <orm-attributes>
+          <attribute name="table">model_engine</attribute>
+          <attribute name="export-file-name">ModelEngine.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\Model" to="\AppBundle\Entity\Series" caption="Series Model" owner-alias="model" inverse-alias="series" many-owner="true" many-inverse="false" uuid="ef2d4e64-b34f-4fe4-b185-ddf266b2a247">
+      <association-field from="series" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\Model" to="\AppBundle\Entity\Manufacturer" caption="Manufacturer Model" owner-alias="models" inverse-alias="manufacturer" many-owner="true" many-inverse="false" uuid="78c25830-1ca2-4d49-afd9-3da211a447fa">
+      <association-field from="manufacturer_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\ModelEngine" to="\AppBundle\Entity\Model" caption="Model ModelEngine" owner-alias="modelEngine" inverse-alias="model" many-owner="true" many-inverse="false" uuid="3687b67a-6dbd-4f7c-b3c3-b12e53e5f6d0">
+      <association-field from="model" to="id"/>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Series" uuid="c06be12e-7514-4ac5-9ac1-ae460c4bb0d3">
+      <entity name="\AppBundle\Entity\Series" local-name="Series" namespace="\AppBundle\Entity" uuid="895d8c70-ec02-44b2-a3ea-9a16677e02cc">
+        <field name="id" type="integer" required="true" primary="true" uuid="74d92a33-872c-41e0-8b30-5f33c8a7dfe8">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameUtf8" type="string" size="128" required="true" uuid="889b6356-aca6-45cb-9075-91837a2bec39">
+          <orm-attributes>
+            <attribute name="column">name_utf8</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerId" type="integer" required="true" uuid="37dddd0a-c753-481a-b9ec-19cd98d05f11">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" uuid="e00663e6-9479-43b9-962e-31cbd7e7d9e0">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listOrder" type="integer" required="true" uuid="6cca699f-a992-43b5-8860-79b2d15c6b03">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="31014a8b-f4aa-46ee-818c-218225c3cdcd">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="4c7aa9dd-580e-403c-b3b7-5ef2c3e366f7">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" required="true" uuid="9a663631-8fc9-454c-92b8-49a43b431278">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" required="true" uuid="f0a48396-b50c-4a0d-9a3b-216fb4f85573">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" required="true" uuid="07244c43-3a8b-4f04-982a-e2edec7d253f"/>
+        <field name="sysStatus" type="integer" required="true" uuid="47d7ad85-4c8e-417b-8fa2-4e058d540690">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="series_meta" type="integer" uuid="f1785421-1ad9-435b-ba16-438281265ad8"/>
+        <index name="idx_series">
+          <index-field name="id"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">series</attribute>
+          <attribute name="export-file-name">Series.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\SeriesMetadata" local-name="SeriesMetadata" namespace="\AppBundle\Entity" uuid="ebd1fe36-4295-49df-aa3c-fbd34ac51e58">
+        <field name="id" type="integer" required="true" primary="true" uuid="5a116b65-a4bc-4c9b-aa90-60be91468826">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="meta" type="string" size="128" required="true" uuid="1b772a1a-19c0-4103-850c-858d80dee894"/>
+        <field name="description" type="string" size="128" uuid="bf8b4b7f-0972-4a26-a590-e7c128ac159e"/>
+        <field name="sysStatus" type="integer" required="true" uuid="ed51d918-0b68-4589-b48b-2ffd1ced336e">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <index name="metaclass_idx">
+          <index-field name="id"/>
+          <index-field name="meta"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">series_metadata</attribute>
+          <attribute name="export-file-name">SeriesMetadata.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\Series" to="\AppBundle\Entity\SeriesMetadata" caption="SeriesMetadata Series" inverse-alias="seriesMetadata" many-owner="true" many-inverse="false" uuid="92943132-2bce-412b-95a0-c6c0c4157bb9">
+      <association-field from="series_meta" to="id"/>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Transmission" uuid="ad120617-ef06-42d5-b70a-c269e5462875">
+      <entity name="\AppBundle\Entity\Transmission" local-name="Transmission" namespace="\AppBundle\Entity" uuid="d9006b72-d63b-4185-80fc-695c92ba1394">
+        <field name="id" type="integer" size="11" required="true" primary="true" uuid="b0c3436e-0538-43dd-a2e6-1813fbb98a02">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="vehicleType" type="integer" size="11" required="true" uuid="5be5194f-0a98-4e6e-87ec-9da16ff49651">
+          <orm-attributes>
+            <attribute name="column">vehicle_type</attribute>
+          </orm-attributes>
+        </field>
+        <field name="nameUtf8" type="string" size="128" required="true" uuid="bfec4c7f-bcb2-442d-b305-d77f2c4175ea">
+          <orm-attributes>
+            <attribute name="column">name_utf8</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerId" type="integer" size="11" required="true" uuid="016df31b-d648-41d6-a75a-1532fa3e12a3">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" uuid="6cd4309b-d4c7-42a6-bc56-585942884a16">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listOrder" type="integer" size="11" required="true" uuid="0cd772fd-af27-4255-ba3e-6cb419e822e2">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="4a967948-fcde-4d31-86b8-f11014e55550">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="06aa3468-fadb-49d0-bf3c-0e675a2b5797">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" size="11" required="true" uuid="519d6369-f851-4e09-af7e-19d5a0cee707">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" size="11" required="true" uuid="d58abb1c-3d09-49a0-b53f-bf49ce6e56b9">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" size="11" required="true" uuid="44dd13e0-f1a1-4734-9e27-393e65717cd3">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" size="1" required="true" uuid="ad5c59a7-ea64-4981-9371-a0d7b54a6862"/>
+        <field name="sysStatus" type="integer" size="11" required="true" uuid="fd6743aa-93d3-4251-8e7c-187fa61fc9da">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="transmission_meta" type="integer" size="11" uuid="93e77cb6-c077-493a-b53e-507bfddcc7ca"/>
+        <index name="transmission_meta">
+          <index-field name="transmission_meta"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">transmission</attribute>
+          <attribute name="export-file-name">Transmission.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\TransmissionManufacturerCode" local-name="TransmissionManufacturerCode" namespace="\AppBundle\Entity" uuid="595b9729-5067-4511-9ee3-8650b74537ad">
+        <field name="id" type="integer" size="11" required="true" primary="true" uuid="2c435f6c-a395-49c8-9d6e-6ce698ad2c27">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" required="true" uuid="a8dea1cd-b21e-4d8b-9085-26dc1d516ad5">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="transmission_id" type="integer" size="11" uuid="e30bfc14-1942-4b00-852c-2a6f237ec701"/>
+        <index name="transmission_id" unique="true">
+          <index-field name="transmission_id"/>
+          <index-field name="manufacturerCode"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">transmission_manufacturer_code</attribute>
+          <attribute name="export-file-name">TransmissionManufacturerCode.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\TransmissionMetadata" local-name="TransmissionMetadata" namespace="\AppBundle\Entity" uuid="6ec8f0b5-cc65-4712-bb1d-413eaf98d60c">
+        <field name="id" type="integer" required="true" primary="true" uuid="c1a12e43-f998-4960-a26b-60286f31cfcd">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="description" type="string" size="30" required="true" uuid="afe52101-d9ef-4a6b-a73a-72813e24b24b"/>
+        <field name="speed" type="integer" required="true" uuid="617a63b6-0368-477e-a447-5de25641360b"/>
+        <field name="meta" type="string" size="32" required="true" uuid="a3c3cc33-15c6-4dc3-a39e-6b6c32d41bde"/>
+        <field name="sysStatus" type="integer" required="true" uuid="5dd80b90-cecc-4a32-9fbc-93d2369c13f8">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="meta_group" uuid="f1716001-eff2-4710-9a3d-62d6273929f6"/>
+        <index name="fk_mega_group">
+          <index-field name="meta_group"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">transmission_metadata</attribute>
+          <attribute name="export-file-name">TransmissionMetadata.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\TransmissionMetadataGroup" local-name="TransmissionMetadataGroup" namespace="\AppBundle\Entity" uuid="9de92082-bae1-4403-9f2a-29b151fe0030">
+        <field name="id" type="integer" required="true" primary="true" uuid="a876ad39-2171-4e92-a978-1cc13740fd46">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="32" required="true" uuid="0fa2e2ff-b52d-4235-8218-7c09c79d9210"/>
+        <orm-attributes>
+          <attribute name="table">transmission_metadata_group</attribute>
+          <attribute name="export-file-name">TransmissionMetadataGroup.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\Transmission" to="\AppBundle\Entity\TransmissionMetadata" owner-alias="transmission" inverse-alias="transmissionMetadata" many-owner="true" many-inverse="false" uuid="a58cacbb-472c-4187-9cd9-7c932d41bc56">
+      <association-field from="transmission_meta" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\TransmissionManufacturerCode" to="\AppBundle\Entity\Transmission" owner-alias="transmissionManufacturerCode" inverse-alias="transmission" many-owner="true" many-inverse="false" uuid="c2b12701-1f35-4388-8c20-484e7e28646c">
+      <association-field from="transmission_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\TransmissionMetadata" to="\AppBundle\Entity\TransmissionMetadataGroup" caption="TransmissionMetadataGroup" inverse-alias="metaGroup" many-owner="true" many-inverse="false" uuid="0bdaf186-0dbb-46bc-bfcb-49a01948485e">
+      <association-field from="meta_group" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning">
+          <attribute name="cascade"/>
+          <attribute name="orphan-removal">false</attribute>
+        </attribute>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Trim" uuid="6eea56bd-5e24-418c-a206-0e9efbeb852f">
+      <entity name="\AppBundle\Entity\Trim" local-name="Trim" namespace="\AppBundle\Entity" uuid="927f6a0a-4c73-4982-8d8a-9aa60abbf526">
+        <field name="id" type="integer" required="true" primary="true" uuid="555842b8-7c69-4812-86a7-7c6281ab3bad">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="80" required="true" uuid="c0def286-19d1-4baf-b296-bda7c869e6da"/>
+        <field name="manufacturerId" type="integer" uuid="5ae61ee6-c296-4448-a8d3-8cb91ceec8f9">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="vehicleType" type="integer" required="true" uuid="47a54d66-e0bf-49e2-91c7-ac9a8f09863b">
+          <orm-attributes>
+            <attribute name="column">vehicle_type</attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" required="true" uuid="7017f089-c44b-4910-88bc-84bba74e838c">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="colourMeta" type="integer" required="true" uuid="d9797777-b9df-4881-a721-d06c570de1be">
+          <orm-attributes>
+            <attribute name="column">colour_meta</attribute>
+          </orm-attributes>
+        </field>
+        <field name="colourShade" type="integer" uuid="03c34f70-e574-4af3-984e-4fb117484587">
+          <orm-attributes>
+            <attribute name="column">colour_shade</attribute>
+          </orm-attributes>
+        </field>
+        <field name="colourMaterial" type="integer" uuid="d34b9e8d-8c13-47e5-8478-a3a2c9757516">
+          <orm-attributes>
+            <attribute name="column">colour_material</attribute>
+          </orm-attributes>
+        </field>
+        <field name="listOrder" type="integer" required="true" uuid="d3ccd06d-e2b3-48b1-a38d-4c0c90083a44">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="bc0b6a11-a6f0-44f5-8925-6fe9a857f3f8">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="68740420-9445-4241-835f-d4ea0eb283c2">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" required="true" uuid="17dc54dd-8c6e-43fd-b3fd-bb211d6308ed">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" required="true" uuid="7b42248f-1868-4e8b-b65f-8fdd91e75606">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" required="true" uuid="eaf03306-8a27-4a58-b4de-275130ac27a4">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" required="true" uuid="0a63d87c-29b3-44d5-bbce-69b3ee86eb6b"/>
+        <field name="sysStatus" type="integer" required="true" uuid="a164746f-3738-4696-bb44-a613f11537b8">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <index name="idx_trim" unique="true">
+          <index-field name="name"/>
+          <index-field name="manufacturerId"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">trim</attribute>
+          <attribute name="export-file-name">Trim.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\TrimManufacturerCode" local-name="TrimManufacturerCode" namespace="\AppBundle\Entity" uuid="9ce23422-2c91-47dc-bce2-dae6757077b0">
+        <field name="id" type="integer" required="true" primary="true" uuid="25a75e45-ecf1-463a-a828-bb9c5e7a55ea">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" required="true" uuid="fa0bf682-f5d8-49ed-8ca8-bc7d33d8262f">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="trim_id" type="integer" uuid="8f34878a-8faa-4ea3-84d0-2138e15a1395"/>
+        <index name="trim_id" unique="true">
+          <index-field name="trim_id"/>
+          <index-field name="manufacturerCode"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">trim_manufacturer_code</attribute>
+          <attribute name="export-file-name">TrimManufacturerCode.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\TrimMaterial" local-name="TrimMaterial" namespace="\AppBundle\Entity" uuid="af8b83d6-c81f-41b2-83a0-91ef956cc5f4">
+        <field name="id" type="integer" required="true" primary="true" uuid="6a748fa7-2d8f-454a-b69c-ac7e22b05a00">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerId" type="integer" required="true" uuid="860aece4-dab0-4616-a0b4-fec5f39f21f9">
+          <orm-attributes>
+            <attribute name="column">manufacturer_id</attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="255" required="true" uuid="7893ed56-f543-4a67-bab2-2ddb526500a3"/>
+        <field name="listOrder" type="integer" required="true" uuid="ce6fa12e-748a-4f1a-b6ef-0697e1dd62d2">
+          <orm-attributes>
+            <attribute name="column">list_order</attribute>
+          </orm-attributes>
+        </field>
+        <field name="trimMaterialMeta" type="integer" required="true" uuid="4eb9cc53-71df-434a-9e9a-38bde2eb4d97">
+          <orm-attributes>
+            <attribute name="column">trim_material_meta</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" required="true" uuid="d323fe16-b592-44f5-8d86-e9bc60f405be">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" required="true" uuid="2c5f896b-4760-4ad3-8d36-90301edc54b5">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" required="true" uuid="3f39372c-a164-4452-8733-89e9a724c7f5">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" required="true" uuid="141cd4a2-dc9b-4ec4-adfa-f71e5f33079e">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" required="true" uuid="27c45e92-7710-48d3-95b9-fde66ae5474b">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" required="true" uuid="cd3f26cc-6ea2-4290-849f-84787cbd9242"/>
+        <field name="sysStatus" type="boolean" required="true" uuid="29b339bf-94b0-4b98-9610-7ceca29746c7">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="trim_material_meta" type="integer" uuid="a7320fa0-efcd-4012-85e6-fc2854f70ab9"/>
+        <orm-attributes>
+          <attribute name="table">trim_material</attribute>
+          <attribute name="export-file-name">TrimMaterial.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\TrimMaterialManufacturerCode" local-name="TrimMaterialManufacturerCode" namespace="\AppBundle\Entity" uuid="3dcec7d8-af80-4fc7-b83a-bb2e0b9b578d">
+        <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="dcb2195a-d1b1-4c89-8775-cd029be91568">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" required="true" uuid="29bd4ad2-ee4a-4acb-ae63-5fa277a27a2b">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="trim_material_id" type="integer" uuid="e5e21cdf-30ab-4c92-bf62-d9ad0976fb7e"/>
+        <index name="idx_trim_material_id2" unique="true">
+          <index-field name="trim_material_id"/>
+          <index-field name="manufacturerCode"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">trim_material_manufacturer_code</attribute>
+          <attribute name="export-file-name">TrimMaterialManufacturerCode.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\TrimMaterialMetadata" local-name="TrimMaterialMetadata" namespace="\AppBundle\Entity" uuid="c438dc95-579a-482f-8529-82080cf7c807">
+        <field name="id" type="integer" required="true" primary="true" uuid="0debac5f-8d6d-4e0f-8979-3d18498ed0dd">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="255" required="true" uuid="52de9337-b886-478d-8d4e-bf26eb76d080"/>
+        <field name="sysStatus" type="boolean" required="true" uuid="f5f2ba9c-4edd-4c64-884f-89e54290c8c1">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <orm-attributes>
+          <attribute name="table">trim_material_metadata</attribute>
+          <attribute name="export-file-name">TrimMaterialMetadata.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\TrimShade" local-name="TrimShade" namespace="\AppBundle\Entity" uuid="061c4876-e6d0-4715-bcc9-d06abf26b5a6">
+        <field name="id" type="integer" required="true" primary="true" uuid="42e28288-c0a6-4243-9a41-d763e82d6c66">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="name" type="string" size="255" required="true" uuid="3552b015-40cc-4f33-a155-5493004b20fa"/>
+        <field name="sysStatus" type="boolean" required="true" uuid="0202c7a8-60c1-49aa-95d4-bd07fc140935">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <orm-attributes>
+          <attribute name="table">trim_shade</attribute>
+          <attribute name="export-file-name">TrimShade.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\TrimManufacturerCode" to="\AppBundle\Entity\Trim" caption="Trim TrimManufacturerCode" owner-alias="trimManufacturerCode" inverse-alias="trim" many-owner="true" many-inverse="false" uuid="3c8dcd45-3ab2-4bac-944f-7dbcaf943875">
+      <association-field from="trim_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\TrimMaterial" to="\AppBundle\Entity\TrimMaterialMetadata" caption="TrimMaterialMetadata TrimMaterial" inverse-alias="trimMaterialMetadata" many-owner="true" many-inverse="false" uuid="4780feae-faac-4fc4-a28e-9fe43faed308">
+      <association-field from="trim_material_meta" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\TrimMaterialManufacturerCode" to="\AppBundle\Entity\TrimMaterial" caption="TrimMaterial TrimMaterialManufacturerCode" owner-alias="trimMaterialManufacturerCode" inverse-alias="trimMaterial" many-owner="true" many-inverse="false" uuid="9cbea634-c4bc-446e-b93d-4274376a7e78">
+      <association-field from="trim_material_id" to="id"/>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Variant" uuid="08141bc4-69c6-4dbf-839a-1adabbdcf4e0">
+      <entity name="\AppBundle\Entity\Variant" local-name="Variant" namespace="\AppBundle\Entity" uuid="8ed2dfe4-57e9-4684-aff9-bbb6d742e50e">
+        <field name="id" type="integer" required="true" primary="true" uuid="dec202b4-1180-476b-9384-85ac09748c40">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="255" uuid="a00e66e0-4d06-4bec-b4be-9d8de03d2e88">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="variantName" type="string" size="80" uuid="07e9f8b4-2ca2-47d6-ba79-1b0ea135dda0">
+          <orm-attributes>
+            <attribute name="column">variant_name</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateAdded" type="datetime" uuid="a734d375-aa87-48c6-869a-3e9f55d5edff">
+          <orm-attributes>
+            <attribute name="column">date_added</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dateUpdated" type="datetime" uuid="98223017-4ac1-4938-8600-6fe5e2f4d19b">
+          <orm-attributes>
+            <attribute name="column">date_updated</attribute>
+          </orm-attributes>
+        </field>
+        <field name="addedBy" type="integer" required="true" uuid="f60ea616-b6ee-4840-a10e-afba91c37577">
+          <orm-attributes>
+            <attribute name="column">added_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="updatedBy" type="integer" required="true" uuid="a7aa4ba6-e0ef-4208-9d1f-2bf48c414268">
+          <orm-attributes>
+            <attribute name="column">updated_by</attribute>
+          </orm-attributes>
+        </field>
+        <field name="dataSource" type="integer" required="true" uuid="df3c4fb8-9b76-4351-8ee2-3809e26e7b3e">
+          <orm-attributes>
+            <attribute name="column">data_source</attribute>
+          </orm-attributes>
+        </field>
+        <field name="verified" type="integer" required="true" uuid="84d7262f-e2a9-41ea-96eb-d8f513d9c185"/>
+        <field name="sysStatus" type="integer" required="true" uuid="685212d5-70f6-43bd-ace2-7fb88bcd6789">
+          <orm-attributes>
+            <attribute name="column">sys_status</attribute>
+          </orm-attributes>
+        </field>
+        <field name="model_id" uuid="c0840ea8-86fc-4fe5-8a6a-50f46b981887"/>
+        <index name="model_id">
+          <index-field name="model_id"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">variant</attribute>
+          <attribute name="export-file-name">Variant.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\AppBundle\Entity\VariantManufacturerCode" local-name="VariantManufacturerCode" namespace="\AppBundle\Entity" uuid="0fbbe05b-a3d8-4848-93b4-0c935cc6a346">
+        <field name="id" type="integer" required="true" primary="true" uuid="88d6d353-a1a2-4e3d-843a-87283ec78a64">
+          <orm-attributes>
+            <attribute name="generator">
+              <attribute name="strategy">IDENTITY</attribute>
+            </attribute>
+          </orm-attributes>
+        </field>
+        <field name="manufacturerCode" type="string" size="20" required="true" uuid="8c527d01-4810-44f3-ade3-f90330af9896">
+          <orm-attributes>
+            <attribute name="column">manufacturer_code</attribute>
+          </orm-attributes>
+        </field>
+        <field name="variant_id" type="integer" uuid="78b8b2c2-6153-4301-994e-3ec42a524dae"/>
+        <index name="variant_id" unique="true">
+          <index-field name="variant_id"/>
+          <index-field name="manufacturerCode"/>
+        </index>
+        <orm-attributes>
+          <attribute name="table">variant_manufacturer_code</attribute>
+          <attribute name="export-file-name">VariantManufacturerCode.orm.yml</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\VariantManufacturerCode" to="\AppBundle\Entity\Variant" caption="Variant VariantManufacturerCode" owner-alias="variantManufacturerCode" inverse-alias="variant" many-owner="true" many-inverse="false" uuid="4ce54186-a132-4a20-a9ef-1e966650bd96">
+      <association-field from="variant_id" to="id"/>
+    </association>
+  </module>
+  <visual-data>
+    <entity uuid="011ecb39-4df6-4328-af83-08bbcf00c31f" bg-color="4294967295" hdr-color="4292006610" position-x="173" position-y="1011" size-x="0" size-x2="103" size-y="0" size-y2="74"/>
+    <entity uuid="01f464ec-5aed-48a0-b48c-debefe41c020" bg-color="4294967295" hdr-color="4292006610" position-x="995" position-y="23" size-x="0" size-x2="145" size-y="0" size-y2="185"/>
+    <entity uuid="045c4f48-2ff6-4686-a0db-8c58005ce447" bg-color="4294967295" hdr-color="4292006610" position-x="620" position-y="998" size-x="0" size-x2="110" size-y="0" size-y2="129"/>
+    <entity uuid="061c4876-e6d0-4715-bcc9-d06abf26b5a6" bg-color="4294967295" hdr-color="4292006610" position-x="27" position-y="521" size-x="0" size-x2="103" size-y="0" size-y2="59"/>
+    <region uuid="08141bc4-69c6-4dbf-839a-1adabbdcf4e0" bg-color="4293391869" position-x="145" position-y="768" size-x="2" size-x2="434" size-y="20" size-y2="220"/>
+    <association uuid="0bdaf186-0dbb-46bc-bfcb-49a01948485e" caption1-position-x="-22" caption1-position-y="1" center-position-x="14" center-position-y="0" color="4284601169"/>
+    <entity uuid="0fbbe05b-a3d8-4848-93b4-0c935cc6a346" bg-color="4294967295" hdr-color="4292006610" position-x="25" position-y="5" size-x="0" size-x2="145" size-y="0" size-y2="59"/>
+    <association uuid="12bd34f3-3bbe-4ed6-977d-f80f27085643" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="134c7500-5f4f-4cc6-bd94-87eb8449d7e8" center-position-x="3" center-position-y="-10" color="4288059030"/>
+    <region uuid="16aa33c7-1e74-4876-ad54-b1728ecc13b5" bg-color="4293584113" position-x="1386" position-y="637" size-x="241" size-x2="184" size-y="389" size-y2="-129"/>
+    <association uuid="21144959-98e5-47c2-9a0e-3b9f486ff350" center-position-x="1" center-position-y="-95" color="4278236368"/>
+    <region uuid="2a716863-cf55-4090-ab41-64b64b37390c" bg-color="4293391335" position-x="645" position-y="1718" size-x="0" size-x2="550" size-y="-5" size-y2="400"/>
+    <entity uuid="348e4665-35fe-4528-8bac-f32de7c3049e" bg-color="4294967295" hdr-color="4292006610" position-x="35" position-y="198" size-x="0" size-x2="119" size-y="0" size-y2="73"/>
+    <association uuid="35913975-7ce0-46d7-a98c-c9c3cff03fb1" caption1-position-x="-61" caption1-position-y="-24" center-position-x="20" center-position-y="0" color="4288059030"/>
+    <association uuid="3687b67a-6dbd-4f7c-b3c3-b12e53e5f6d0" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="36eedf11-e149-4c1c-a1cb-bde7b253decb" caption1-position-x="10" caption1-position-y="4" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <many-to-many-association uuid="3c4426f4-74e4-433f-9ae6-4aeb32b406f4" color="4288059030"/>
+    <association uuid="3c8dcd45-3ab2-4bac-944f-7dbcaf943875" caption1-position-x="42" caption1-position-y="19" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <entity uuid="3dcec7d8-af80-4fc7-b83a-bb2e0b9b578d" bg-color="4294967295" hdr-color="4292006610" position-x="252" position-y="171" size-x="0" size-x2="145" size-y="0" size-y2="59"/>
+    <association uuid="4065ff23-34a2-4564-878e-fda4490c3c5b" caption1-position-x="-156" caption1-position-y="1" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="41be6be7-fdbc-42b9-85e8-93c1eef757a4" caption1-position-x="-12" caption1-position-y="32" center-position-x="133" center-position-y="-17" color="4288059030"/>
+    <association uuid="434eeb2d-fac8-4ef6-ad17-2cae49058334" caption1-position-x="115" caption1-position-y="49" center-position-x="0" center-position-y="-99" color="4288059030"/>
+    <entity uuid="448cf6e8-3dfe-4a09-b053-d448f3c82561" bg-color="4294967295" hdr-color="4292006610" position-x="-286" position-y="-5" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
+    <entity uuid="4596c496-c097-40ed-8380-e5fd37cdbf95" bg-color="4294967295" hdr-color="4292006610" position-x="-286" position-y="145" size-x="0" size-x2="145" size-y="0" size-y2="59"/>
+    <association uuid="4780feae-faac-4fc4-a28e-9fe43faed308" caption1-position-x="49" caption1-position-y="23" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="4a80d1e9-ac04-4584-a75e-ab978dbe2f06" caption1-position-x="-76" caption1-position-y="3" center-position-x="30" center-position-y="0" color="4288059030"/>
+    <association uuid="4ce54186-a132-4a20-a9ef-1e966650bd96" caption1-position-x="-30" caption1-position-y="25" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="51d880ab-9520-481f-9b11-90f94fde76ae" color="4288059030"/>
+    <association uuid="53e4af24-40f6-4dbc-838e-18f241abbb8f" caption1-position-x="-1" caption1-position-y="0" center-position-x="-14" center-position-y="0" color="4288059030"/>
+    <association uuid="57066e7e-83bf-48de-98d0-fbb887f0270c" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <entity uuid="595b9729-5067-4511-9ee3-8650b74537ad" bg-color="4294967295" hdr-color="4292006610" position-x="250" position-y="-41" size-x="0" size-x2="145" size-y="0" size-y2="59"/>
+    <entity uuid="5a4c3ab2-76fa-4122-9b60-0fd11c57bbe6" bg-color="4294967295" hdr-color="4292006610" position-x="400" position-y="25" size-x="0" size-x2="120" size-y="0" size-y2="101"/>
+    <entity uuid="5d3e943c-d069-4a1a-bfcb-457015f5fccd" bg-color="4294967295" hdr-color="4292006610" position-x="35" position-y="23" size-x="0" size-x2="117" size-y="0" size-y2="129"/>
+    <entity uuid="68e20c54-05ec-42f2-b9fc-07ff4adf6894" bg-color="4294967295" hdr-color="4292006610" position-x="745" position-y="23" size-x="0" size-x2="117" size-y="0" size-y2="59"/>
+    <entity uuid="6ec8f0b5-cc65-4712-bb1d-413eaf98d60c" bg-color="4294967295" hdr-color="4292006610" position-x="250" position-y="59" size-x="0" size-x2="114" size-y="0" size-y2="101"/>
+    <region uuid="6eea56bd-5e24-418c-a206-0e9efbeb852f" bg-color="4293584113" position-x="1143" position-y="552" size-x="-2" size-x2="427" size-y="4" size-y2="596"/>
+    <association uuid="707115f5-5384-4da1-8846-4229bb811646" caption1-position-x="8" caption1-position-y="-7" center-position-x="55" center-position-y="0" color="4288059030"/>
+    <region uuid="75342cbe-64b1-48c5-892d-c1db2ce039ce" bg-color="4293391869" position-x="135" position-y="25" size-x="-10" size-x2="485" size-y="2" size-y2="373"/>
+    <entity uuid="77de168e-769c-495a-8237-fc2f01c6b1d6" bg-color="4294967295" hdr-color="4292006610" position-x="881" position-y="28" size-x="0" size-x2="89" size-y="0" size-y2="45"/>
+    <association uuid="78822c0d-bd11-4d62-b37a-087e8844660f" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="78c25830-1ca2-4d49-afd9-3da211a447fa" caption1-position-x="39" caption1-position-y="4" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <entity uuid="7ad84c5c-4bb3-4fc9-a4f0-522e96586330" bg-color="4294967295" hdr-color="4292006610" position-x="225" position-y="25" size-x="0" size-x2="147" size-y="0" size-y2="185"/>
+    <association uuid="7c15a0ce-8242-4bf4-828f-fa1e1d3b6b8f" caption1-position-x="0" caption1-position-y="0" center-position-x="-5" center-position-y="0" color="4288059030"/>
+    <entity uuid="7ded8eea-132b-489b-96ea-7558f8d9a805" bg-color="4294967295" hdr-color="4292006610" position-x="242" position-y="263" size-x="0" size-x2="141" size-y="0" size-y2="73"/>
+    <region uuid="7f46e322-e453-480c-9c1f-ca19b5d9dd82" bg-color="4294831087" position-x="456" position-y="466" size-x="311" size-x2="164" size-y="43" size-y2="220"/>
+    <entity uuid="8545fbc0-187a-4869-a610-04db786c3423" bg-color="4294967295" hdr-color="4292006610" position-x="25" position-y="25" size-x="0" size-x2="145" size-y="0" size-y2="255"/>
+    <entity uuid="895d8c70-ec02-44b2-a3ea-9a16677e02cc" bg-color="4294967295" hdr-color="4292006610" position-x="195" position-y="32" size-x="0" size-x2="145" size-y="0" size-y2="185"/>
+    <entity uuid="8ed2dfe4-57e9-4684-aff9-bbb6d742e50e" bg-color="4294967295" hdr-color="4292006610" position-x="250" position-y="5" size-x="0" size-x2="150" size-y="0" size-y2="171"/>
+    <association uuid="92411e4f-41be-412e-b4ba-ba5ac1a8c9de" caption1-position-x="9" caption1-position-y="0" center-position-x="0" center-position-y="-67" color="4288059030"/>
+    <entity uuid="927f6a0a-4c73-4982-8d8a-9aa60abbf526" bg-color="4294967295" hdr-color="4292006610" position-x="27" position-y="246" size-x="0" size-x2="145" size-y="0" size-y2="241"/>
+    <association uuid="92943132-2bce-412b-95a0-c6c0c4157bb9" caption1-position-x="-35" caption1-position-y="29" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="9369637b-9772-426c-b918-12605f0e7e94" center-position-x="0" center-position-y="9" color="4291674923"/>
+    <association uuid="99d5a4ae-e0aa-4dc6-b9b5-f15e24f7b40f" center-position-x="-3" center-position-y="5" color="4294218527"/>
+    <project uuid="9bf48741-ebe5-4c8f-8445-b3df71cc00be" size-x="558" size-x2="950" size-y="200" size-y2="2025"/>
+    <association uuid="9cbea634-c4bc-446e-b93d-4274376a7e78" caption1-position-x="61" caption1-position-y="-24" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <entity uuid="9ccf7fe8-fffb-4ac7-8423-62d2e06c76e4" bg-color="4294967295" hdr-color="4292006610" position-x="35" position-y="298" size-x="0" size-x2="145" size-y="0" size-y2="59"/>
+    <entity uuid="9ce23422-2c91-47dc-bce2-dae6757077b0" bg-color="4294967295" hdr-color="4292006610" position-x="252" position-y="271" size-x="0" size-x2="145" size-y="0" size-y2="59"/>
+    <entity uuid="9de92082-bae1-4403-9f2a-29b151fe0030" bg-color="4294967295" hdr-color="4292006610" position-x="243" position-y="209" size-x="0" size-x2="132" size-y="0" size-y2="45"/>
+    <entity uuid="9edf3bb9-4fe5-42a0-b911-6f7f49bed0c8" bg-color="4294967295" hdr-color="4292006610" position-x="9" position-y="-349" size-x="0" size-x2="114" size-y="0" size-y2="73"/>
+    <region uuid="9ef5d96e-ae1c-4d47-bb82-015e007477ac" bg-color="4294900968" position-x="255" position-y="1338" size-x="110" size-x2="340" size-y="165" size-y2="190"/>
+    <entity uuid="9f255f91-038e-46b8-acf4-f0f63f86ed61" bg-color="4294967295" hdr-color="4292006610" position-x="140" position-y="-140" size-x="0" size-x2="169" size-y="0" size-y2="311"/>
+    <association uuid="a58cacbb-472c-4187-9cd9-7c932d41bc56" center-position-x="-1" center-position-y="0" color="4288059030"/>
+    <association uuid="a89c98ed-b640-4e45-8114-49821ca0c0ce" caption1-position-x="-6" caption1-position-y="-3" center-position-x="0" center-position-y="-84" color="4288059030"/>
+    <entity uuid="ac6480f6-3f17-407b-a98f-553c9b2d188b" bg-color="4294967295" hdr-color="4292006610" position-x="25" position-y="325" size-x="0" size-x2="136" size-y="0" size-y2="59"/>
+    <region uuid="ad120617-ef06-42d5-b70a-c269e5462875" bg-color="4294831087" position-x="1145" position-y="1264" size-x="0" size-x2="425" size-y="91" size-y2="284"/>
+    <entity uuid="af8b83d6-c81f-41b2-83a0-91ef956cc5f4" bg-color="4294967295" hdr-color="4292006610" position-x="27" position-y="21" size-x="0" size-x2="137" size-y="0" size-y2="199"/>
+    <entity uuid="b98e4dbd-b05e-4d68-ab6c-6bab6e1bf70b" bg-color="4294967295" hdr-color="4292006610" position-x="564" position-y="1595" size-x="0" size-x2="117" size-y="0" size-y2="73"/>
+    <many-to-many-association-entity uuid="bc4ab8a9-f73b-4a09-95fd-3a6b78082a74" caption1-position-x="12" caption1-position-y="17" center-position-x="0" center-position-y="89"/>
+    <entity uuid="be72b4c6-a59b-4fca-9eb0-619ab6ee4b31" bg-color="4294967295" hdr-color="4292006610" position-x="-216" position-y="-354" size-x="0" size-x2="145" size-y="0" size-y2="199"/>
+    <association uuid="bfc16b3c-3869-4d61-ac47-d43d9ca4120a" caption1-position-x="-18" caption1-position-y="1" center-position-x="-17" center-position-y="0" color="4288059030"/>
+    <region uuid="c06be12e-7514-4ac5-9ac1-ae460c4bb0d3" bg-color="4294897635" position-x="196" position-y="1716" size-x="55" size-x2="395" size-y="-7" size-y2="232"/>
+    <association uuid="c2b12701-1f35-4388-8c20-484e7e28646c" center-position-x="-1" center-position-y="0" color="4288059030"/>
+    <entity uuid="c2bf2f25-8ce3-41ac-abe5-6bc13bef9932" bg-color="4294967295" hdr-color="4292006610" position-x="1145" position-y="1623" size-x="0" size-x2="134" size-y="0" size-y2="87"/>
+    <entity uuid="c438dc95-579a-482f-8529-82080cf7c807" bg-color="4294967295" hdr-color="4292006610" position-x="252" position-y="21" size-x="0" size-x2="103" size-y="0" size-y2="59"/>
+    <association uuid="c52bdbfd-6766-4f65-8ede-cb8b0da70838" caption1-position-x="75" caption1-position-y="23" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="c56d91b1-b242-4c9f-a976-032ec4064984" caption1-position-x="78" caption1-position-y="11" center-position-x="0" center-position-y="-273" color="4288059030"/>
+    <association uuid="c6b16d50-dbbe-4a47-b35c-8d0cfbe932de" caption1-position-x="0" caption1-position-y="-6" center-position-x="-1" center-position-y="0" color="4288059030"/>
+    <entity uuid="c89af5fc-b27d-40e8-b294-4ebe50416c9a" bg-color="4294967295" hdr-color="4292006610" position-x="9" position-y="-248" size-x="0" size-x2="145" size-y="0" size-y2="59"/>
+    <association uuid="ca172f19-0976-436e-a72f-596bd5123ceb" color="4288059030"/>
+    <association uuid="cb5e208a-4d18-438a-933f-b9c5b8b9d9ba" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <entity uuid="ce607811-5238-47de-ad13-c23eceadcc05" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-11" position-y="-5" size-x="0" size-x2="145" size-y="0" size-y2="199"/>
+    <entity uuid="d0db6302-6dac-468a-ad01-2f56fc9007b3" bg-color="4294967295" hdr-color="4292006610" position-x="820" position-y="385" size-x="0" size-x2="191" size-y="0" size-y2="1263"/>
+    <association uuid="d5b09e39-3c04-4e47-909b-b9d6e5c05632" caption1-position-x="26" caption1-position-y="-9" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="d7bd22b0-88dc-4c8c-94d0-aab2e66915e8" caption1-position-x="-14" caption1-position-y="0" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <module uuid="d889ccd2-5a1c-4980-b706-64f6e22aa4e6" bg-color="4294900968" position-x="-670" position-y="-173" size-x="-120" size-x2="1595" size-y="2" size-y2="2148"/>
+    <entity uuid="d9006b72-d63b-4185-80fc-695c92ba1394" bg-color="4294967295" hdr-color="4292006610" position-x="25" position-y="-66" size-x="0" size-x2="151" size-y="0" size-y2="213"/>
+    <many-to-many-association-entity uuid="e2af30de-b7ea-4846-975e-b20bb6c65c39" caption1-position-x="0" caption1-position-y="3" center-position-x="0" center-position-y="0"/>
+    <entity uuid="e87c4488-804a-49c6-86ef-b231b505d657" bg-color="4294967295" hdr-color="4292006610" position-x="312" position-y="23" size-x="0" size-x2="151" size-y="0" size-y2="311"/>
+    <entity uuid="ebd1fe36-4295-49df-aa3c-fbd34ac51e58" bg-color="4294967295" hdr-color="4292006610" position-x="-30" position-y="32" size-x="0" size-x2="119" size-y="0" size-y2="73"/>
+    <association uuid="edb0cf17-82ec-4ea8-985d-929051d555f8" caption1-position-x="114" caption1-position-y="42" center-position-x="-85" center-position-y="0" color="4288059030"/>
+    <association uuid="ef2d4e64-b34f-4fe4-b185-ddf266b2a247" caption1-position-x="1" caption1-position-y="38" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <association uuid="f2ae85e3-20f0-4754-a4eb-16c5e5301e97" caption1-position-x="0" caption1-position-y="0" center-position-x="-5" center-position-y="0" color="4288059030"/>
+    <entity uuid="f937b6ad-edd2-4d3d-99e2-1e4cfcca6b33" bg-color="4294967295" hdr-color="4292006610" position-x="-85" position-y="-140" size-x="0" size-x2="120" size-y="0" size-y2="101"/>
+  </visual-data>
+</skipper>

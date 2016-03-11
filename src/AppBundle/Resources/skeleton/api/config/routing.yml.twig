@@ -1,0 +1,49 @@
+{% if 'getList' in actions %}
+{{ route_name_prefix }}:
+    path:     /{{ route_prefix }}
+    defaults: { _controller: "{{ bundle }}:{{ entity }}:getList" }
+    methods:  GET
+{% endif %}
+
+{% if 'getOne' in actions %}
+{{ route_name_prefix }}_id:
+    path:     /{{ route_prefix }}/{id}
+    defaults: { _controller: "{{ bundle }}:{{ entity }}:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+{% endif %}
+
+{% if 'post' in actions %}
+{{ route_name_prefix }}_post:
+    path:     /{{ route_prefix }}
+    defaults: { _controller: "{{ bundle }}:{{ entity }}:post" }
+    methods:  POST
+{% endif %}
+
+{% if 'patch' in actions %}
+{{ route_name_prefix }}_id_patch:
+    path:     /{{ route_prefix }}/{id}
+    defaults: { _controller: "{{ bundle }}:{{ entity }}:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+{% endif %}
+
+{% if 'put' in actions %}
+{{ route_name_prefix }}_id_put:
+    path:     /{{ route_prefix }}/{id}
+    defaults: { _controller: "{{ bundle }}:{{ entity }}:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+{% endif %}
+
+{% if 'delete' in actions %}
+{{ route_name_prefix }}_id_delete:
+    path:     /{{ route_prefix }}/{id}
+    defaults: { _controller: "{{ bundle }}:{{ entity }}:delete" }
+    methods:  [DELETE]
+    requirements:
+        id: "\d+"
+{% endif %}

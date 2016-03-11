@@ -1,0 +1,18 @@
+IMS\CommonBundle\Entity\Equipment:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        equipmentType:
+            - NotBlank: ~
+        dateAdded:
+            - DateTime: ~
+        dateUpdated:
+            - DateTime: ~
+        isVerified:
+            - Type:
+                type: boolean
+        status:
+            - Type:
+                type: integer

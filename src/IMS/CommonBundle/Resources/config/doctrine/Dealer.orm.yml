@@ -1,0 +1,92 @@
+IMS\CommonBundle\Entity\Dealer:
+  type: entity
+  table: dealer
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    dealerRef:
+      type: string
+      length: 100
+      nullable: true
+      column: dealer_ref
+    name:
+      type: string
+      length: 100
+      nullable: true
+    tradingTitle:
+      type: string
+      length: 100
+      nullable: true
+      column: trading_title
+    email:
+      type: string
+      length: 100
+      nullable: true
+    publicUrl:
+      type: string
+      length: 100
+      nullable: true
+      column: public_url
+    isApproved:
+      type: boolean
+      column: is_approved
+    isVerified:
+      type: boolean
+      column: is_verified
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    addedBy:
+      type: string
+      length: 200
+      nullable: true
+      column: added_by
+    updatedBy:
+      type: string
+      length: 200
+      nullable: true
+      column: updated_by
+    dealerStatus:
+      type: integer
+      length: 2
+      column: dealer_status
+    dealerType:
+      type: integer
+      length: 2
+      column: dealer_type
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    vehicles:
+      targetEntity: IMS\CommonBundle\Entity\Vehicle
+      mappedBy:     dealer
+  manyToOne:
+    account:
+      targetEntity: IMS\CommonBundle\Entity\Account
+      inversedBy:   dealers
+    dealerGroup:
+      targetEntity: IMS\CommonBundle\Entity\DealerGroup
+      inversedBy:   dealers
+  oneToOne:
+    location:
+      targetEntity: IMS\CommonBundle\Entity\Location
+      inversedBy:   dealer
+  manyToMany:
+    manufacturers:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      mappedBy:     dealers

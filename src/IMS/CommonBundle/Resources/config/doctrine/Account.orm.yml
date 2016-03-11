@@ -1,0 +1,35 @@
+IMS\CommonBundle\Entity\Account:
+  type: entity
+  table: account
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    ref:
+      type: string
+      length: 100
+      nullable: true
+    name:
+      type: string
+      length: 100
+      nullable: true
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+  oneToMany:
+    dealers:
+      targetEntity: IMS\CommonBundle\Entity\Dealer
+      mappedBy:   account

@@ -1,0 +1,22 @@
+IMS\CommonBundle\Entity\EngineManufacturerCode:
+  type: entity
+  table: engine_manufacturer_code
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    code:
+      type: string
+      length: 50
+  uniqueConstraints:
+    uidx_engine_manufacturer_code_engine_id_code:
+      columns: [engine_id, code]
+  manyToOne:
+    engine:
+      targetEntity: IMS\CommonBundle\Entity\Engine
+      inversedBy: manufacturerCodes
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: engineManufacturerCodes

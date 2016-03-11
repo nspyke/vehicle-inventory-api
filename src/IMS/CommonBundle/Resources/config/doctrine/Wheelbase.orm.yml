@@ -1,0 +1,42 @@
+IMS\CommonBundle\Entity\Wheelbase:
+  type: entity
+  table: wheelbase
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\WheelbaseTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    manufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\WheelbaseManufacturerCode
+      mappedBy: wheelbase
+  manyToMany:
+    manufacturers:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      mappedBy: wheelbases

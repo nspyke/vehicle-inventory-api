@@ -1,0 +1,48 @@
+IMS\CommonBundle\Entity\Vehicle:
+    repositoryClass: AppBundle\Repository\VehicleRepository
+
+IMS\CommonBundle\Entity\Equipment:
+    repositoryClass: AppBundle\Repository\EquipmentRepository
+
+IMS\CommonBundle\Entity\Model:
+    repositoryClass: AppBundle\Repository\ModelRepository
+
+IMS\CommonBundle\Entity\Bodystyle:
+    repositoryClass: AppBundle\Repository\BodystyleRepository
+
+IMS\CommonBundle\Entity\Engine:
+    repositoryClass: AppBundle\Repository\EngineRepository
+
+IMS\CommonBundle\Entity\TrimShade:
+    repositoryClass: AppBundle\Repository\TrimShadeRepository
+
+IMS\CommonBundle\Entity\Manufacturer:
+    repositoryClass: AppBundle\Repository\ManufacturerRepository
+
+# Manufacturer Code Repositories
+IMS\CommonBundle\Entity\BodystyleManufacturerCode:
+    repositoryClass: AppBundle\Repository\BodystyleManufacturerCodeRepository
+
+IMS\CommonBundle\Entity\ColourManufacturerCode:
+    repositoryClass: AppBundle\Repository\ColourManufacturerCodeRepository
+
+IMS\CommonBundle\Entity\EngineManufacturerCode:
+    repositoryClass: AppBundle\Repository\EngineManufacturerCodeRepository
+
+IMS\CommonBundle\Entity\EquipmentManufacturerCode:
+    repositoryClass: AppBundle\Repository\EquipmentManufacturerCodeRepository
+
+IMS\CommonBundle\Entity\TransmissionManufacturerCode:
+    repositoryClass: AppBundle\Repository\TransmissionManufacturerCodeRepository
+
+IMS\CommonBundle\Entity\TrimManufacturerCode:
+    repositoryClass: AppBundle\Repository\TrimManufacturerCodeRepository
+
+IMS\CommonBundle\Entity\TrimMaterialManufacturerCode:
+    repositoryClass: AppBundle\Repository\TrimMaterialManufacturerCodeRepository
+
+IMS\CommonBundle\Entity\VariantManufacturerCode:
+    repositoryClass: AppBundle\Repository\VariantManufacturerCodeRepository
+
+IMS\CommonBundle\Entity\WheelbaseManufacturerCode:
+    repositoryClass: AppBundle\Repository\WheelbaseManufacturerCodeRepository

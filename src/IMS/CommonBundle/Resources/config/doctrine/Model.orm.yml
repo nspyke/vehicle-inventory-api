@@ -1,0 +1,78 @@
+IMS\CommonBundle\Entity\Model:
+  type: entity
+  table: model
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\ModelTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    isVerified:
+      type: boolean
+      column: is_verified
+    status:
+      type: integer
+      length: 2
+  manyToOne:
+    modelGroup:
+      targetEntity: IMS\CommonBundle\Entity\ModelGroup
+      inversedBy: models
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: models
+  manyToMany:
+    engines:
+      targetEntity: IMS\CommonBundle\Entity\Engine
+      inversedBy: models
+      joinTable:
+        name: engine_model
+        joinColumns:
+          model_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          engine_id:
+            referencedColumnName: id
+    equipment:
+      targetEntity: IMS\CommonBundle\Entity\Equipment
+      inversedBy: models
+      joinTable:
+        name: equipment_model
+        joinColumns:
+          model_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          equipment_id:
+            referencedColumnName: id
+    variants:
+      targetEntity: IMS\CommonBundle\Entity\Variant
+      inversedBy: models
+      joinTable:
+        name: variant_model
+        joinColumns:
+          model_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          variant_id:
+            referencedColumnName: id

@@ -1,0 +1,26 @@
+    /**
+{% block phpdoc_method_header %}
+     * Deletes a {{ entity_class }} entity.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function deleteAction(Request $request, $id)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $handler = $this->get('{{ handler_service_name }}');
+        $handler->delete($id);
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
+{% endblock method_return %}
+    }
+
+{% block form %}
+
+{% endblock form %}

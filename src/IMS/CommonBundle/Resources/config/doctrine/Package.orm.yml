@@ -1,0 +1,39 @@
+IMS\CommonBundle\Entity\Package:
+  type: entity
+  table: package
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\PackageTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 50
+      gedmo:
+        - translatable
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+
+  manyToOne:
+    packageType:
+      targetEntity: IMS\CommonBundle\Entity\PackageType
+      mappedBy: packages

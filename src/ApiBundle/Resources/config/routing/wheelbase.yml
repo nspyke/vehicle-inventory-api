@@ -1,0 +1,36 @@
+wheelbases:
+    path:     /wheelbases
+    defaults: { _controller: "ApiBundle:Wheelbase:getList" }
+    methods:  GET
+
+wheelbases_mc_list:
+    path:     /wheelbases/manufacturer-codes
+    defaults: { _controller: "ApiBundle:Wheelbase:getManufacturerCodesList" }
+    methods:  GET
+
+wheelbases_id:
+    path:     /wheelbases/{id}
+    defaults: { _controller: "ApiBundle:Wheelbase:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+wheelbases_post:
+    path:     /wheelbases
+    defaults: { _controller: "ApiBundle:Wheelbase:post" }
+    methods:  POST
+
+wheelbases_id_patch:
+    path:     /wheelbases/{id}
+    defaults: { _controller: "ApiBundle:Wheelbase:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+
+wheelbases_id_put:
+    path:     /wheelbases/{id}
+    defaults: { _controller: "ApiBundle:Wheelbase:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+

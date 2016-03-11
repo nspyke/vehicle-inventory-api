@@ -1,0 +1,46 @@
+IMS\CommonBundle\Entity\DealerGroup:
+  type: entity
+  table: dealer_group
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      nullable: true
+    groupRef:
+      type: string
+      length: 100
+      nullable: true
+      column: group_ref
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+  oneToMany:
+    dealers:
+      targetEntity: IMS\CommonBundle\Entity\Dealer
+      mappedBy:     dealerGroup
+    children:
+      targetEntity: IMS\CommonBundle\Entity\DealerGroup
+      mappedBy:     parent
+  manyToOne:
+    account:
+      targetEntity: IMS\CommonBundle\Entity\Account
+      inversedBy:   dealerGroups
+    parent:
+      targetEntity: IMS\CommonBundle\Entity\DealerGroup
+      inversedBy:   children

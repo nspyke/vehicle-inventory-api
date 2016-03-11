@@ -1,0 +1,15 @@
+IMS\CommonBundle\Entity\TrimShade:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        trim:
+            - NotBlank: ~
+        dateAdded:
+            - DateTime: ~
+        dateUpdated:
+            - DateTime: ~
+        status:
+            - Type:
+                type: integer

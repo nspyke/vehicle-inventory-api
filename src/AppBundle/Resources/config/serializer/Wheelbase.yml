@@ -1,0 +1,13 @@
+IMS\CommonBundle\Entity\Wheelbase:
+  exclusion_policy: all
+  properties:
+    id:
+      expose: true
+    name:
+      expose: true
+    dateAdded:
+      expose: true
+    dateUpdated:
+      expose: true
+    status:
+      expose: true

@@ -1,0 +1,22 @@
+IMS\CommonBundle\Entity\EquipmentManufacturerCode:
+  type: entity
+  table: equipment_manufacturer_code
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    code:
+      type: string
+      length: 50
+  uniqueConstraints:
+    uidx_equipment_manufacturer_code_equipment_id_code:
+      columns: [equipment_id, code]
+  manyToOne:
+    equipment:
+      targetEntity: IMS\CommonBundle\Entity\Equipment
+      inversedBy: manufacturerCodes
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: equipmentManufacturerCodes

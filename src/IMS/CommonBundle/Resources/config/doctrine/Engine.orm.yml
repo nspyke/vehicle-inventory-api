@@ -1,0 +1,71 @@
+IMS\CommonBundle\Entity\Engine:
+  type: entity
+  table: engine
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\EngineTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    cylinders:
+      type: integer
+      nullable: true
+    valves:
+      type: integer
+      nullable: true
+    bhp:
+      type: decimal
+      nullable: true
+      precision: 11
+      scale: 2
+    turbo:
+      type: integer
+      nullable: true
+    supercharger:
+      type: integer
+      nullable: false
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    isVerified:
+      type: boolean
+      column: is_verified
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    manufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\EngineManufacturerCode
+      mappedBy: engine
+  manyToOne:
+    fuel:
+      targetEntity: IMS\CommonBundle\Entity\Fuel
+      joinColumns:
+        fuel_id:
+          referencedColumnName: id
+  manyToMany:
+    manufacturers:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      mappedBy: engines
+    models:
+      targetEntity: IMS\CommonBundle\Entity\Model
+      mappedBy: engines

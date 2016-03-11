@@ -1,0 +1,64 @@
+IMS\CommonBundle\Entity\Location:
+  type: entity
+  table: location
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      nullable: true
+    city:
+      type: string
+      length: 100
+      nullable: true
+    state:
+      type: string
+      length: 100
+      nullable: true
+    postalCode:
+      type: string
+      length: 20
+      nullable: true
+      column: postal_code
+    longitude:
+      type: decimal
+      precision: 14
+      scale: 10
+      nullable: true
+    latitude:
+      type: decimal
+      precision: 14
+      scale: 10
+      nullable: true
+    isVerified:
+      type: boolean
+      column: is_verified
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+  manyToOne:
+    country:
+      targetEntity: IMS\CommonBundle\Entity\Country
+  oneToOne:
+    dealer:
+      targetEntity: IMS\CommonBundle\Entity\Dealer
+      mappedBy:     location
+

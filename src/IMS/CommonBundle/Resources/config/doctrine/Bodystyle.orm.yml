@@ -1,0 +1,46 @@
+IMS\CommonBundle\Entity\Bodystyle:
+  type: entity
+  table: bodystyle
+  gedmo:
+    translation:
+      entity: IMS\CommonBundle\Entity\Translation\BodystyleTranslation
+  fields:
+    id:
+      id: true
+      type: integer
+      length: 11
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      gedmo:
+        - translatable
+    isVerified:
+      type: boolean
+      column: is_verified
+    dateAdded:
+      type: datetime
+      nullable: true
+      column: date_added
+      gedmo:
+        timestampable:
+          on: create
+    dateUpdated:
+      type: datetime
+      nullable: true
+      column: date_updated
+      gedmo:
+        timestampable:
+          on: update
+    status:
+      type: integer
+      length: 2
+  oneToMany:
+    manufacturerCodes:
+      targetEntity: IMS\CommonBundle\Entity\BodystyleManufacturerCode
+      mappedBy: bodystyle
+  manyToMany:
+    manufacturers:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      mappedBy: bodystyles

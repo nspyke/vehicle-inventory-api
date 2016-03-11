@@ -1,0 +1,35 @@
+parameters:
+    ims_common.event_listener.load_class_metadata.class: IMS\CommonBundle\EventListener\LoadClassMetadata
+
+services:
+    ims_common.event_listener.load_class_metadata:
+        class: %ims_common.event_listener.load_class_metadata.class%
+        arguments:
+            - "%ims_common.metadata%"
+
+    ims_common.event_listener.locale_listener:
+        class: IMS\CommonBundle\EventListener\LocaleListener
+        arguments:
+            - @gedmo.listener.translatable
+        tags:
+            # translatable sets locale after router processing
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -10 }
+
+    gedmo.listener.translatable:
+        class: Gedmo\Translatable\TranslatableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]
+            - [ setDefaultLocale, [ %locale% ] ]
+            - [ setTranslatableLocale, [ %locale% ] ]
+            - [ setTranslationFallback, [ %ims_common.translation_fallback% ] ]
+            - [ setPersistDefaultLocaleTranslation, [ %ims_common.persist_default_translation% ] ]
+            - [ setSkipOnLoad, [ %ims_common.skip_translation_on_load% ] ]
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]

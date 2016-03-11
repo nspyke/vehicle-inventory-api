@@ -1,0 +1,29 @@
+ALTER TABLE `IMS_API`.`bodystyle_manufacturer_code`
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `IMS_API`.`colour_manufacturer_code`
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `IMS_API`.`engine_manufacturer_code`
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+
+ALTER TABLE `IMS_API`.`transmission_manufacturer_code`
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+
+ALTER TABLE `IMS_API`.`trim_manufacturer_code`
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `IMS_API`.`trim_material_manufacturer_code`
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `IMS_API`.`variant_manufacturer_code`
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);

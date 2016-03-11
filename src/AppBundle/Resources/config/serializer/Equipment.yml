@@ -1,0 +1,17 @@
+IMS\CommonBundle\Entity\Equipment:
+  exclusion_policy: all
+  properties:
+    id:
+      expose: true
+    name:
+      expose: true
+    dateAdded:
+      expose: true
+    dateUpdated:
+      expose: true
+    isVerified:
+      expose: true
+    equipmentType:
+      expose: true
+    status:
+      expose: true

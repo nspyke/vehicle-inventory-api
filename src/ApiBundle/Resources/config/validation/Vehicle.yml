@@ -1,0 +1,43 @@
+IMS\CommonBundle\Entity\Vehicle:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: vin
+    properties:
+        vin:
+            - NotBlank: ~
+            - Length:
+                max: 20
+        reg:
+            - Length:
+                max: 20
+        doors:
+            - Type:
+                type: integer
+        seats:
+            - Type:
+                type: integer
+        dateRegistered:
+            - Date: ~
+        dateAdded:
+            - DateTime: ~
+        dateUpdated:
+            - DateTime: ~
+        drive:
+            - Choice:
+                choices: [L, R]
+        odometer:
+            - Type:
+                type: integer
+        odometerCanonical:
+            - Type:
+                type: integer
+        odometerUnit:
+            - Choice:
+                choices: [km, mi]
+        manufacturer:
+            - NotBlank: ~
+        model:
+            - NotBlank: ~
+        status:
+            - NotBlank: ~
+            - Type:
+                type: integer

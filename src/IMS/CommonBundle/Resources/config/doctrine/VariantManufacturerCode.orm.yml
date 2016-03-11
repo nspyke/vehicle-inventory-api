@@ -1,0 +1,23 @@
+IMS\CommonBundle\Entity\VariantManufacturerCode:
+  type: entity
+  table: variant_manufacturer_code
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    code:
+      type: string
+      length: 50
+      nullable: false
+  uniqueConstraints:
+    uidx_variant_manufacturer_code_variant_id_code:
+      columns: [variant_id, code]
+  manyToOne:
+    variant:
+      targetEntity: IMS\CommonBundle\Entity\Variant
+      inversedBy: manufacturerCodes
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: variantManufacturerCodes

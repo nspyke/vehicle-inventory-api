@@ -1,0 +1,23 @@
+IMS\CommonBundle\Entity\Model:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        dateAdded:
+            - DateTime: ~
+        dateUpdated:
+            - DateTime: ~
+        isVerified:
+            - NotBlank: ~
+            - Type:
+                type: boolean
+        status:
+            - NotBlank: ~
+            - Type:
+                type: integer
+        modelGroup:
+            - NotBlank: ~
+        manufacturer:
+            - NotBlank: ~
+

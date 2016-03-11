@@ -1,0 +1,36 @@
+colours:
+    path:     /colours
+    defaults: { _controller: "ApiBundle:Colour:getList" }
+    methods:  GET
+
+colours_mc_list:
+    path:     /colours/manufacturer-codes
+    defaults: { _controller: "ApiBundle:Colour:getManufacturerCodesList" }
+    methods:  GET
+
+colours_id:
+    path:     /colours/{id}
+    defaults: { _controller: "ApiBundle:Colour:getOneById" }
+    methods:  GET
+    requirements:
+        id: "\d+"
+
+colours_post:
+    path:     /colours
+    defaults: { _controller: "ApiBundle:Colour:post" }
+    methods:  POST
+
+colours_id_patch:
+    path:     /colours/{id}
+    defaults: { _controller: "ApiBundle:Colour:patch" }
+    methods:  [PATCH]
+    requirements:
+        id: "\d+"
+
+colours_id_put:
+    path:     /colours/{id}
+    defaults: { _controller: "ApiBundle:Colour:put" }
+    methods:  [PUT]
+    requirements:
+        id: "\d+"
+

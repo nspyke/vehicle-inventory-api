@@ -1,0 +1,23 @@
+IMS\CommonBundle\Entity\TransmissionManufacturerCode:
+  type: entity
+  table: transmission_manufacturer_code
+  fields:
+    id:
+      id: true
+      type: integer
+      length: 11
+      generator:
+        strategy: IDENTITY
+    code:
+      type: string
+      length: 50
+  uniqueConstraints:
+    uidx_transmission_mc_transmission_id_code:
+      columns: [transmission_id, code]
+  manyToOne:
+    transmission:
+      targetEntity: IMS\CommonBundle\Entity\Transmission
+      inversedBy: manufacturerCodes
+    manufacturer:
+      targetEntity: IMS\CommonBundle\Entity\Manufacturer
+      inversedBy: transmissionManufacturerCodes

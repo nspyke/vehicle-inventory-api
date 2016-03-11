@@ -1,0 +1,37 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * Returns a single {{ entity_class }} for the supplied ID.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+    * @ApiDoc(
+    *      resource=true,
+    *      description="GET a single {{ entity_class }} by ID",
+    *      section="{{ entity_class }}",
+    *      requirements={
+    *          {"name"="id", "dataType"="integer", "required"=true, "description"="ID of {{ entity_class }}"}
+    *      },
+    *      statusCodes={
+    *          200="Returned when successful",
+    *          404="Returned when the {{ entity_class }} is not found"
+    *      }
+    * )
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function getOneByIdAction($id)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $handler = $this->get('{{ handler_service_name }}');
+        $entity = $handler->getOneById($id);
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->view(
+            $entity,
+            Codes::HTTP_OK
+        );
+{% endblock method_return %}
+    }

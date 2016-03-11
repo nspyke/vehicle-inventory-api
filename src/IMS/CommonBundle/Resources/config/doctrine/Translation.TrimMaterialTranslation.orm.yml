@@ -1,0 +1,12 @@
+IMS\CommonBundle\Entity\Translation\TrimMaterialTranslation:
+  type: entity
+  table: trim_material_translation
+  repositoryClass: Gedmo\Translatable\Entity\Repository\TranslationRepository
+  extends: IMS\CommonBundle\Entity\Translation\AbstractTranslation
+  indexes:
+    idx_trim_material_translation:
+      columns:
+        - locale
+        - object_class
+        - field
+        - foreign_key
